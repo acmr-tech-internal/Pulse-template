@@ -38,6 +38,7 @@ so it needs `http://` rather than opening the file directly.
 | `support.js` | Generated template runtime. Never edit. |
 | `PROMPT.md` | The brief to fill in and the instructions to the agent. |
 | `CLAUDE.md` | Rules the agent reads before touching anything. |
+| `AGENTS.md` | The same rules under the cross-tool filename. Keep the two in step. |
 | `tools/` | The checks, plus `serve.js` for looking at it and `recolour.js` for rebranding. |
 | `verify.sh` | Runs all the checks. |
 
