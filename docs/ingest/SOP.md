@@ -233,7 +233,7 @@ ingest promote --batch <batch-id>
 ```
 
 - Approved mapping joins the gold corpus for `ingest-eval`
-- Approved column mappings join `ingest.reference_columns` as MinHash sketches, so client
+- Approved column mappings join `ingest.reference_columns` as k-min sketches, so client
   N+1 is easier than client N
 - Every correction made in steps 3, 4 and 5 is recorded as a labelled row, and corrections
   are the highest-value rows in the corpus because they are exactly what the mapper got wrong

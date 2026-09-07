@@ -67,7 +67,7 @@ expensive to revisit after the first client.
 | # | Assumption | Revisit when |
 |---|---|---|
 | A1 | Bulk data lands in the client's Supabase Postgres | A dataset exceeds roughly 50M rows, or a client's data may not leave their own tenancy |
-| A2 | The ingest engine is Python and DuckDB. Pulse stays TypeScript. They meet at Postgres | Never, unless the team cannot staff Python |
+| A2 | Everything is TypeScript in the Pulse monorepo. All compute is SQL in the client's Supabase Postgres. No second toolchain | The team wants Splink's EM-estimated match weights badly enough to add Python |
 | A3 | An ACMR developer approves every mapping before publish. Zero-touch is out of scope for v1 | Clients self-onboard |
 | A4 | Agents read the published graph through `graphql.resolve()` called server-side, gated by the policy kernel | See the open question below |
 | A5 | Model calls default to `claude-opus-5` through the Batch API with prompt caching on the shared prefix | Measured cost becomes material, which on current volumes it will not |
@@ -103,13 +103,15 @@ Recorded here rather than guessed at.
 ```
 packages/modules/ingest/          the Pulse-side module: bookkeeping tables, review UI,
                                   publish action, the mod_ingest_* migrations
-tools/ingest/                     the Python engine: connectors, shredders, profiler,
-                                  mapper, linker, resolver, publisher, eval harness
-tools/ingest/ontology/            the target ontology: core pack + industry packs
-tools/ingest/recognisers/         the semantic type library, versioned
-tools/ingest/eval/gold/           the gold corpus
+packages/modules/ingest/sql/      the compute: profiling, sketches, IND, FD, resolution.
+                                  Plain SQL files, versioned, run by the driver
+packages/modules/ingest/src/      the driver: connectors, shredders, cascade, publisher
+packages/modules/ingest/ontology/ the target ontology: core pack + industry packs
+packages/modules/ingest/recognisers/  the semantic type library, versioned
+packages/modules/ingest/eval/gold/    the gold corpus
 apps/<client>/extensions/         generated ext_* migrations, and the client's mapping.yaml
 ```
 
-Everything under `tools/ingest/` is a standalone Python package that talks to Postgres and
-knows nothing about Pulse's TypeScript. The seam is the database and the mapping file.
+The driver parses files, runs SQL and calls the model. It holds no algorithm of its own.
+Every operation that touches more than one row is a SQL file under `sql/`, which is what
+makes the pipeline reviewable, testable with `pgtap`, and portable to the next client.

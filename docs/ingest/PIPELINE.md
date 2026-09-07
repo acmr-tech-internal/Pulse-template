@@ -92,6 +92,42 @@ create table staging.stg_crm_accounts (
 Type inference happens in stage 2 with the evidence recorded, and the parse expression ends
 up written down in the mapping file where a human can see it.
 
+### Everything the pipeline needs is already in the box
+
+Verified against a Supabase project created 2026-09-06, Postgres 17.6, so this is what a
+new Pulse client project starts with rather than a wish list.
+
+| Extension | Version | Used for |
+|---|---|---|
+| `pg_graphql` | 1.6.1 | The agent read surface, called server-side as `graphql.resolve()` |
+| `pg_trgm` | 1.6 | Resolution blocking, trigram similarity, fuzzy column-name matching |
+| `fuzzystrmatch` | 1.2 | `levenshtein` and `dmetaphone` in the resolution score |
+| `unaccent`, `citext` | 1.1, 1.6 | Name normalisation before comparison |
+| `vector` | 0.8.2 | Cached column embeddings for the layer 4 shortlist |
+| `pg_jsonschema` | 0.3.3 | Validating `mapping_proposals.payload` at write time |
+| `postgres_fdw`, `dblink` | 1.1, 1.2 | Reading a client's live Postgres directly, schema and all |
+| `wrappers` | 0.6.2 | Reading CSV, Parquet and JSONL out of S3 or Supabase Storage |
+| `tsm_system_rows` | 1.0 | First-pass profiling of a very large staging table |
+| `pg_partman` | 5.3.1 | Partitioning staging by batch, if a source ever needs it |
+| `pgtap` | 1.3.3 | Testing the SQL under `sql/` as SQL |
+| `btree_gin`, `intarray`, `hstore` | | Index and set support for sketches and profiles |
+
+Two absences that shaped the design:
+
+- **No `hll`.** Approximate distinct counting uses the k-min sketch in `MAPPING.md` §2,
+  which is one statement of plain SQL and needs no extension.
+- **No in-database Python.** Which is the correct constraint to design against anyway,
+  because it keeps every algorithm expressible as SQL a reviewer can read.
+
+Two present and deliberately unused:
+
+- **`pg_cron` and `pgmq`.** Pulse already has one scheduler, and CLAUDE.md is explicit that
+  background work registers a job rather than adding a second cron or a second runner.
+  Ingest jobs register with `packages/core/src/domain/scheduler`, exactly as
+  `core.knowledge.ingest` already does.
+- **`http` and `pg_net`.** Calling a model from inside a Postgres function would put a model
+  in the publish path, which §1 forbids.
+
 ---
 
 ## 3. Connectors
@@ -99,12 +135,18 @@ up written down in the mapping file where a human can see it.
 A connector's whole job is getting bytes or rows into the landing zone and registering a
 batch. No parsing, no business logic, no per-client behaviour.
 
-```python
-# tools/ingest/connectors/base.py
-class Connector(Protocol):
-    kind: str                                    # 'file' | 'sftp' | 'sql' | 'http' | 'imap'
-    def fetch(self, config: dict, dest: Path) -> Manifest: ...
+```typescript
+// packages/modules/ingest/src/connectors/types.ts
+export interface Connector {
+  readonly kind: 'file' | 'sftp' | 'sql' | 'http' | 'imap';
+  fetch(config: ConnectorConfig, dest: string): Promise<Manifest>;
+}
 ```
+
+The `sql` connector is worth calling out. With `postgres_fdw` or `dblink`, a client's live
+Postgres needs no export at all: read `information_schema` and `pg_constraint` for the
+hints, then pull rows straight into staging. `wrappers` covers the same move for S3,
+BigQuery and a handful of SaaS sources.
 
 `Manifest` lists the files or result sets landed, their content hashes, and any structure
 the source happened to declare. That last part is the important one, see §5.
@@ -135,7 +177,8 @@ Two shredders earn special mention.
 is a type declaration the text loses. A formula (`=B2*C2`) declares that a column is derived
 and names its inputs. A **data validation dropdown gives the complete enumeration for a
 status column, including values that appear nowhere in the data**, which no statistical
-method can recover. Read these with `openpyxl`, read the bulk values with DuckDB.
+method can recover. `exceljs` exposes all of it: number formats, formulas, data validation
+lists and named ranges.
 
 **json.** Nested objects and arrays are parent-child relationships stated outright. Shred
 them into separate tables with a generated parent key and emit a `nesting` hint. Those
@@ -143,11 +186,15 @@ become foreign keys at publish with no discovery work at all.
 
 Shredders are allowed to donate nothing. A source that knows nothing costs nothing.
 
+A shredder parses, then streams rows into staging with `COPY ... FROM STDIN`, which is the
+fastest loader Postgres has and the only one worth using. Nothing is held in memory beyond
+one chunk.
+
 ```
-# ponytail: DuckDB reads csv, json, parquet and xlsx directly and does the bulk pass in one
-# query. Format-specific libraries (openpyxl, mailbox, pdfplumber) run only for hint
-# extraction, over metadata rather than over rows. Push a shredder to streaming only when a
-# single file will not fit in memory, which is a file-size problem rather than a row-count one.
+# ponytail: parse in the driver, COPY into staging, compute in SQL. A shredder that starts
+# doing arithmetic has taken work that belongs in sql/. For a file too large to stream from
+# the developer's machine, land it in Supabase Storage and read it with the S3 wrapper
+# instead; that is a file-size problem rather than a row-count one.
 ```
 
 ---
@@ -177,7 +224,7 @@ CSVs with no metadata runs the same code path without a special case.
 
 ## 6. Profiling
 
-One DuckDB pass over staging produces, per column:
+One SQL pass over staging produces, per column:
 
 | Group | Fields |
 |---|---|

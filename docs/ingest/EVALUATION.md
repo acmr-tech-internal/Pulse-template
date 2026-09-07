@@ -230,10 +230,12 @@ set. Keep one dataset permanently held out and add new ones to the tuning pool i
 If hand-tuned weights plateau, replace the noisy-or with a **logistic regression over the
 layer scores**, fitted on gold column-mappings.
 
-```python
-# ponytail: ~20 lines of scikit-learn over about 15 features, fully interpretable, and the
-# coefficients replace the hand weights directly. This is the only machine learning in the
-# design. It needs a few hundred gold mappings, so it is not available until client three.
+```
+# ponytail: fit it OFFLINE, once, in whatever tool suits, and paste the coefficients into
+# the weights config. About 15 features, fully interpretable, and the coefficients drop
+# straight into the noisy-or as weights. Nothing new ships at runtime. This is the only
+# machine learning in the design, and it needs a few hundred gold mappings, so it is
+# unavailable until client three.
 ```
 
 Everything else stays rules, statistics and one adjudicating model call. If a proposal

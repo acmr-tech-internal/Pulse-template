@@ -65,14 +65,24 @@ score in `[0, 1]`. Cheap and precise layers run first.
 Deterministic detectors that fire on format and value distribution. Versioned as a library,
 shared across every client, carrying no client data.
 
-```python
-# tools/ingest/recognisers/registry.py
-Recogniser(
-    name="eircode",
-    pattern=r"^[ACDEFHKNPRTVWXY][0-9]{2}\s?[0-9ACDEFHKNPRTVWXY]{4}$",
-    min_hit_rate=0.85,      # fraction of non-null values that must match
-    semantic_type="location.eircode",
-)
+```typescript
+// packages/modules/ingest/recognisers/registry.ts
+{
+  name: 'eircode',
+  pattern: '^[ACDEFHKNPRTVWXY][0-9]{2}\\s?[0-9ACDEFHKNPRTVWXY]{4}$',
+  minHitRate: 0.85,        // fraction of non-null values that must match
+  semanticType: 'location.eircode',
+}
+```
+
+A recogniser is a data row. The registry is loaded into `ingest.recognisers` and every
+hit rate is measured by one SQL statement over all columns at once, using Postgres regex:
+
+```sql
+select column_name,
+       count(*) filter (where v ~ r.pattern)::numeric / nullif(count(*), 0) as hit_rate
+from staging.stg_crm_accounts, ingest.recognisers r
+...
 ```
 
 Starting set: `email`, `phone_ie`, `phone_uk`, `phone_e164`, `eircode`, `postcode_uk`,
@@ -92,17 +102,34 @@ The asset that compounds. Every approved mapping contributes its columns:
 create table ingest.reference_columns (
   id             uuid primary key default gen_random_uuid(),
   ontology_field text not null,
-  value_hashes   bytea not null,        -- MinHash sketch of distinct values
+  sketch         bigint[] not null,     -- k smallest hashtext() values, k = 128
   name_tokens    text[] not null,
   stats          jsonb not null,        -- cardinality ratio, length profile, char classes
   approved_at    timestamptz not null default now()
 );
 ```
 
-Scoring a new column is a MinHash Jaccard estimate against every sketch, which is fast and
-approximate, followed by exact containment on the top few. "82% of this column's distinct
-values appear in columns previously mapped to `location.county`" is a stronger signal than
-any name similarity, and it costs one index scan.
+The sketch is a k-minimum-values summary, built in one statement with no extension, since
+Supabase carries no `hll`:
+
+```sql
+-- the 128 smallest hashes of a column's distinct values
+select array_agg(h order by h) from (
+  select distinct hashtext(cust_name) as h
+  from staging.stg_crm_accounts
+  where cust_name is not null
+  order by h limit 128
+) s;
+```
+
+Two sketches give a Jaccard estimate from `array_length(a & b) / array_length(a | b)` using
+`intarray`-style set operators on `bigint[]`, which is fast enough to score a new column
+against the whole corpus in one query. Exact containment then confirms the top few. "82% of
+this column's distinct values appear in columns previously mapped to `location.county`" is a
+stronger signal than any name similarity.
+
+The same sketch prunes inclusion-dependency candidates in §3, so it is built once per
+column and used twice.
 
 Only hashes are stored, never values, so the corpus crosses client boundaries without
 carrying client data. That matters given one Supabase project per client: the corpus is the
@@ -148,14 +175,15 @@ Column matches are locally ambiguous and mutually constraining. Solve the table 
 step rather than as N independent decisions.
 
 Build a cost matrix of columns against candidate fields, cost `1 - score`, then run the
-Hungarian algorithm (`scipy.optimize.linear_sum_assignment`). Add constraints: a field with
-`cardinality: one` may take at most one column; a field the ontology marks required must be
-filled if any candidate exists.
+Hungarian algorithm. Add constraints: a field with `cardinality: one` may take at most one
+column; a field the ontology marks required must be filled if any candidate exists.
 
 ```
-# ponytail: scipy's linear_sum_assignment on a table of at most a few hundred columns is
-# milliseconds. Move to a proper constraint solver only if soft constraints beyond
-# one-to-one assignment turn out to matter.
+# ponytail: munkres-js on a table of at most a few hundred columns is milliseconds, and it
+# is the one piece of the cascade that stays in the driver rather than in SQL. Greedy
+# assignment with local swap repair reaches the same answer at this size if the dependency
+# is unwelcome. Move to a real constraint solver only if soft constraints beyond one-to-one
+# turn out to matter.
 ```
 
 This is the layer most pipelines skip and it is free.
@@ -295,8 +323,8 @@ graph comes from.
 
 ```
 # ponytail: pairwise FD test over columns of the same table, pruned by cardinality. O(n^2)
-# in column count, which is fine to a few hundred columns. Sketch-prune with HyperLogLog if
-# a client ever sends a thousand-column table.
+# in column count, which is fine to a few hundred columns. Prune with the k-min sketch and
+# with min/max range overlap from the profile before running the exact test.
 ```
 
 **Weak signals** rank candidates and never assert. Column name similarity, value-domain
@@ -308,31 +336,74 @@ A CRM export and an accounting export share no keys. Every cross-source edge in 
 graph descends from recognising that `Kilbride Group` and `KILBRIDE GROUP LIMITED` are one
 organisation. Resolution is therefore the load-bearing component of the whole pipeline.
 
-**Use [Splink](https://moj-analytical-services.github.io/splink/).** Mature probabilistic
-record linkage, Fellegi-Sunter with EM-estimated match weights, runs on DuckDB, no
-infrastructure, used at national-statistics scale. Writing this layer from scratch would
-cost months and be worse.
+Postgres carries everything this needs: `pg_trgm` for blocking and trigram similarity,
+`fuzzystrmatch` for `levenshtein` and `dmetaphone`, `unaccent` and `citext` for
+normalisation. Four steps, all SQL.
 
-Configuration Pulse supplies:
+**1. Normalise once, into a materialised comparison table.** Lowercase, unaccent, strip
+company suffixes into a separate column, reduce phones to their last 7 digits, reduce
+Eircodes to the routing key. Index it with `gin (name_norm gin_trgm_ops)`.
 
-- **Blocking keys**: normalised name trigram, email domain, phone last 7 digits, Eircode
-  routing key, VAT number, CRO number.
-- **Comparison columns**: name (Jaro-Winkler and trigram levels), address, email, phone.
-- **Hard identifier veto**, applied after Splink scores and before any merge. Two records
-  with **different** non-null VAT numbers never merge, whatever the similarity says.
-  Negative evidence outranks positive similarity, always.
-- **Asymmetric bands**, biased to under-merging on purpose. A surviving duplicate is visible
-  and annoying. A bad merge is invisible and wrong, and it corrupts every metric and every
-  agent decision downstream.
+**2. Block.** Generate candidate pairs only where a cheap key agrees. Nothing else is ever
+compared, which is what keeps this from being O(n squared).
+
+```sql
+select a.id as a_id, b.id as b_id
+from ingest.rr a join ingest.rr b
+  on a.id < b.id
+ and a.source_id <> b.source_id
+ and (a.name_norm % b.name_norm            -- pg_trgm similarity above threshold
+      or a.email_domain = b.email_domain
+      or a.phone_last7  = b.phone_last7
+      or a.eircode_key  = b.eircode_key
+      or a.vat_number   = b.vat_number);
+```
+
+**3. Score, then veto.** A weighted sum of per-field agreement, with hard identifiers able
+to force the answer in both directions:
+
+```sql
+select p.a_id, p.b_id,
+       0.45 * similarity(a.name_norm, b.name_norm)
+     + 0.20 * (1 - least(levenshtein(a.town, b.town), 6) / 6.0)
+     + 0.15 * (a.email = b.email)::int
+     + 0.10 * (a.phone_last7 = b.phone_last7)::int
+     + 0.10 * (dmetaphone(a.name_norm) = dmetaphone(b.name_norm))::int
+       as score,
+       -- the veto: different non-null hard identifiers can never be one record
+       (a.vat_number is not null and b.vat_number is not null
+        and a.vat_number <> b.vat_number) as vetoed
+from pairs p join ingest.rr a on a.id = p.a_id join ingest.rr b on b.id = p.b_id;
+```
+
+The veto is evaluated **after** the score and overrides it completely. Negative evidence
+outranks positive similarity, always. Two businesses with the same name and different VAT
+numbers are two businesses, whatever the trigram says.
+
+**4. Cluster.** Union-find over accepted pairs, as an iterative label-propagation query:
+join each record to the minimum id in its component and repeat until nothing moves.
+Typically three or four iterations on a business graph.
 
 ```
-auto-merge   score >= T_MERGE_HIGH
+auto-merge   score >= T_MERGE_HIGH and not vetoed
 review       T_MERGE_LOW .. T_MERGE_HIGH     -> action inbox, model pre-triaged
-discard      score <  T_MERGE_LOW
+discard      score <  T_MERGE_LOW  or vetoed
 ```
 
-Union-find over accepted pairs produces clusters, one canonical record per cluster derived
-from `ingest.record_aliases`. No source row is destroyed, so un-merging is a re-projection.
+Bands are **asymmetric, biased to under-merging on purpose**. A surviving duplicate is
+visible and someone reports it. A bad merge is invisible, lands in every metric, and
+corrupts every agent decision downstream.
+
+One canonical record per cluster, derived from `ingest.record_aliases`. No source row is
+destroyed, so un-merging is a re-projection.
+
+```
+# ponytail: fixed weights, calibrated against the gold corpus by the harness in
+# EVALUATION.md. Splink would give EM-estimated match weights and a proper
+# Fellegi-Sunter model, and it costs a Python runtime plus a DuckDB or Spark backend.
+# Revisit only if the harness shows fixed weights are the binding constraint on merge
+# precision, which is a measurement rather than an argument.
+```
 
 The merge rate is reported per batch and a large move between batches fails verification.
 A jump from 3% to 30% means something changed upstream, and that should be found before it
