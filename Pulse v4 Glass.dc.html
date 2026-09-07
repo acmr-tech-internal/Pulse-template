@@ -190,7 +190,7 @@ nav{scrollbar-width:none}
 <nav style="{{ railOuter }}">
 <div style="{{ railRowStyle }}margin-bottom:12px">
 <button onClick="{{ toggleRail }}" title="{{ railLabel }}" style="width:30px;height:30px;flex:none;border:0;border-radius:10px;background:var(--accent);color:var(--on-accent);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;padding:0;transition:transform .2s var(--ease)" style-hover="transform:scale(1.07)" style-active="transform:scale(.94)">K</button>
-<span style="{{ brandStyle }}">Kilbride Group</span>
+<span style="{{ brandStyle }}">{{ company }}</span>
 <sc-if value="{{ railOpen }}" hint-placeholder-val="{{ false }}">
 <button onClick="{{ toggleRail }}" title="{{ railLabel }}" style="width:28px;height:28px;flex:none;border:0;border-radius:9px;background:none;color:var(--mid);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s var(--ease),color .2s var(--ease)" style-hover="background:var(--track);color:var(--ink)">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16 M4 12h10 M4 18h16"/></svg></button>
@@ -225,8 +225,8 @@ nav{scrollbar-width:none}
 <span style="{{ settingsInlineStyle }}">Settings</span>
 </button>
 <div style="{{ railRowStyle }}padding-top:8px">
-<div style="width:30px;height:30px;flex:none;border-radius:50%;background:var(--track);color:var(--body);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:500;cursor:pointer">MK</div>
-<span style="{{ brandStyle }}">Martin Kilbride</span>
+<div style="width:30px;height:30px;flex:none;border-radius:50%;background:var(--track);color:var(--body);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:500;cursor:pointer">{{ ownerInitials }}</div>
+<span style="{{ brandStyle }}">{{ ownerName }}</span>
 </div>
 </nav>
 
@@ -302,8 +302,8 @@ nav{scrollbar-width:none}
 </div>
 <sc-if value="{{ showProfileText }}" hint-placeholder-val="{{ true }}">
 <div style="min-width:0">
-<div style="font-size:12px;font-weight:500;line-height:1.2;white-space:nowrap">Martin Kilbride</div>
-<div style="font-size:10.5px;color:var(--faint);line-height:1.2">Owner</div>
+<div style="font-size:12px;font-weight:500;line-height:1.2;white-space:nowrap">{{ ownerName }}</div>
+<div style="font-size:10.5px;color:var(--faint);line-height:1.2">{{ ownerRole }}</div>
 </div>
 </sc-if>
 </div>
@@ -438,7 +438,7 @@ nav{scrollbar-width:none}
 <div style="{{ composerWidthStyle }}">
 <div style="display:flex;align-items:flex-end;gap:10px;padding:11px 11px 11px 18px;background:var(--surface);border:1px solid var(--border);border-radius:26px;backdrop-filter:blur(20px) saturate(1.3);box-shadow:var(--card-shadow)" style-focus="border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-faint)">
 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--mid)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-bottom:8px"><path d="M21.4 11.05 12.25 20.2a5 5 0 0 1-7.07-7.07l8.49-8.49a3.5 3.5 0 0 1 4.95 4.95l-8.49 8.49a2 2 0 0 1-2.83-2.83l7.78-7.78"/></svg>
-<textarea value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ onDraftKey }}" rows="1" placeholder="Ask Pulse anything…" style="flex:1;min-width:0;border:0;outline:0;resize:none;background:none;font-size:15px;line-height:1.55;padding:7px 0;max-height:120px"></textarea>
+<textarea value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ onDraftKey }}" rows="1" placeholder="{{ composerPlaceholder }}" style="flex:1;min-width:0;border:0;outline:0;resize:none;background:none;font-size:15px;line-height:1.55;padding:7px 0;max-height:120px"></textarea>
 <button onClick="{{ send }}" style="flex:none;width:36px;height:36px;border:0;border-radius:50%;background:var(--accent);color:var(--on-accent);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 8px 22px var(--accent-soft)" style-active="transform:translateY(0) scale(.98)">
 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5 M5 12l7-7 7 7"/></svg></button>
 </div>
@@ -2124,7 +2124,7 @@ nav{scrollbar-width:none}
 <div style="display:flex;align-items:center;gap:7px;padding:6px 6px 6px 7px;background:var(--surface-2);border:1px solid var(--border);border-radius:24px;transition:border-color .22s var(--ease),box-shadow .3s var(--ease)" style-focus="border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-faint)">
 <button onClick="{{ miniAttach }}" title="Attach a record or file" style="width:34px;height:34px;flex:none;border:1px solid var(--border);border-radius:50%;background:none;color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:color .2s var(--ease),border-color .2s var(--ease)" style-hover="color:var(--ink);border-color:var(--border-strong)">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14 M5 12h14"/></svg></button>
-<input value="{{ miniDraft }}" onChange="{{ setMiniDraft }}" onKeyDown="{{ onMiniKey }}" placeholder="Ask Helios anything" style="flex:1;min-width:0;border:0;outline:0;background:none;font-size:13.5px;color:var(--ink)"></input>
+<input value="{{ miniDraft }}" onChange="{{ setMiniDraft }}" onKeyDown="{{ onMiniKey }}" placeholder="{{ miniPlaceholder }}" style="flex:1;min-width:0;border:0;outline:0;background:none;font-size:13.5px;color:var(--ink)"></input>
 <button onClick="{{ miniDictate }}" title="Dictate" style="{{ miniMicStyle }}">
 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Z M6 11a6 6 0 0 0 12 0 M12 17v3"/></svg></button>
 <button onClick="{{ sendMini }}" title="Send" style="width:34px;height:34px;flex:none;border:0;border-radius:50%;background:var(--accent);color:var(--on-accent);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .18s var(--ease),box-shadow .22s var(--ease)" style-hover="transform:translateY(-1px);box-shadow:0 6px 16px var(--accent-faint)" style-active="transform:scale(.94)">
@@ -2421,7 +2421,7 @@ nav{scrollbar-width:none}
 </div>
 <div style="position:relative;padding:22px 26px 6px">
 <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--dim)">RECORD NAME</div>
-<input value="{{ newRec.name }}" onChange="{{ newRec.setName }}" placeholder="Casey Builders — 2026 framework" style="width:100%;margin-top:10px;padding:12px 15px;background:var(--chip);border:1px solid var(--chip-border);border-radius:14px;outline:0;font-size:14.5px;color:var(--ink);box-shadow:inset 0 1px 2px rgba(0,0,0,.2);transition:border-color .16s var(--ease),box-shadow .16s var(--ease)" style-focus="border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-faint)"></input>
+<input value="{{ newRec.name }}" onChange="{{ newRec.setName }}" placeholder="{{ newRec.placeholder }}" style="width:100%;margin-top:10px;padding:12px 15px;background:var(--chip);border:1px solid var(--chip-border);border-radius:14px;outline:0;font-size:14.5px;color:var(--ink);box-shadow:inset 0 1px 2px rgba(0,0,0,.2);transition:border-color .16s var(--ease),box-shadow .16s var(--ease)" style-focus="border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-faint)"></input>
 <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--dim);margin-top:22px">HOW THE DATA IS DISPLAYED</div>
 <div style="display:flex;flex-wrap:nowrap;align-items:center;gap:2px;margin-top:12px;padding:3px;background:var(--chip);border:1px solid var(--chip-border);border-radius:999px;width:fit-content;max-width:100%;overflow-x:auto">
 <sc-for list="{{ newRec.cats }}" as="c" hint-placeholder-count="6">
@@ -2674,6 +2674,11 @@ nav{scrollbar-width:none}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 
+/* ========================================================================== */
+/*  ENGINE PRELUDE  -  do not edit                                            */
+/*  Colour aliases and the icon set. These are referenced by the data below,  */
+/*  so they have to be declared first. Nothing here is business content.      */
+/* ========================================================================== */
 const INK="var(--ink)", BODY="var(--body)", DIM="var(--dim)", FAINT="var(--faint)";
 const LIME="var(--accent)", GREEN="var(--ok)", AMBER="var(--warn)", RED="var(--bad)", NEUTRAL="var(--neutral)";
 const MONO="'IBM Plex Mono',monospace";
@@ -2709,12 +2714,88 @@ const ICONS = {
   bell:"M6 8.5a6 6 0 0 1 12 0c0 6.5 2.6 8.5 2.6 8.5H3.4S6 15 6 8.5Z M10.3 20.5a1.94 1.94 0 0 0 3.4 0"
 };
 
+/* ========================================================================== */
+/*                                                                            */
+/*   E D I T   Z O N E   -   everything from here to the ENGINE WALL          */
+/*                                                                            */
+/*   This is the whole demo. Rewrite the values so they read as this          */
+/*   client's business: their people, their customers, their sites, their     */
+/*   systems, their numbers, their vocabulary.                                */
+/*                                                                            */
+/*   Three rules:                                                             */
+/*     1. Keep every list the length it already is. The counts are noted on   */
+/*        each block and the layouts are built around them.                   */
+/*     2. Keep the shape of each object - same keys, same value types.        */
+/*        Change what is inside the quotes, not the quotes.                   */
+/*     3. Leave anything marked [STRUCTURE] alone. Those drive routing,       */
+/*        filters and permissions, not copy.                                  */
+/*                                                                            */
+/* ========================================================================== */
+
+/*  THE BUSINESS  ------------------------------------------------------------
+    Set this first, then write everything below to match it. `owner` is whose
+    screen this is: their name is on the avatar, approvals route to them, and
+    "Awaiting you" counts the steps assigned to them.                         */
+const CONFIG = {
+  product:  "Pulse",                    // the software's name, on the composer and empty states
+  agent:    "Helios",                   // the AI's name, throughout
+  company:  "Kilbride Group",           // the client
+  appName:  "Kilbride Group Operations",// title on the deployment card
+  slug:     "kilbride",                 // lower-case, no spaces
+  sector:   "trade supply",             // used in the agent training log
+  domain:   "kilbridegroup.ie",         // staff email domain
+  currency: "€",                       // symbol only, e.g. € $ £
+  locale:   "en-IE",                    // number and date formatting
+  currencyCode: "EUR",                  // ISO code, shown on charts and the deployment card
+  timezone: "Europe/Dublin",            // IANA name, shown on the deployment card
+  owner:    {name:"Martin Kilbride", firstName:"Martin", role:"Owner", initials:"MK"}
+                                        // firstName is what the home screen greets them by
+};
+
 const REC_SECTIONS = [
   {id:"contacts", label:"Contacts", blurb:"Every person the business deals with, staff and external."},
   {id:"files", label:"Files", blurb:"Documents, contracts and certificates — indexed where Helios can read them."},
   {id:"ontology", label:"Ontology", blurb:"How every record connects: entities, predicates and the paths between them."}
 ];
 
+
+/*  THE CAST  ---------------------------------------------------------------
+    The people, companies and places the whole demo refers back to. Name them
+    here first, then use the same names everywhere below. A demo that renames
+    a customer in one list and not another is worse than one that renames
+    nothing.                                                                 */
+
+/* Records › organisations. EXACTLY 6. Columns: name, relationship, balance,
+   days to pay, status. Status must be one of: active, watch, on stop.
+   Keep one on stop - several screens reference it. */
+const ORGS = [
+  ["Dunne & Sons Ltd","Customer","€28,410","74 days","on stop"],
+  ["Casey Builders","Customer","€6,120","12 days","active"],
+  ["Fitzgerald Heating","Customer","€9,240","63 days","watch"],
+  ["Munster Plumbing Supplies","Supplier","—","—","active"],
+  ["Riverside Developments","Customer","€3,560","61 days","watch"],
+  ["Glanmire Mechanical","Customer","€1,180","8 days","active"]
+];
+
+/* Admin › teams. EXACTLY 4. Columns: name, size, lead, permissions.
+   Leads must be names from CONTACTS. */
+const TEAMS = [
+  ["Accounts","3 members","Aoife Nolan","core:approval:decide"],
+  ["Installers","9 members","Séamus Byrne","core:task:update"],
+  ["Trade counter","6 members","Niamh Cronin","core:person:view"],
+  ["Management","2 members","Martin Kilbride","all core permissions"]
+];
+
+/* Admin › sites. EXACTLY 3. Columns: name, address, headcount, status.
+   These names are reused in REVENUE_SPLIT and across the task lists. */
+const LOCATIONS = [
+  ["Head office","Little Island, Cork","14 staff","active"],
+  ["Ballincollig depot","Ballincollig, Cork","14 staff","lease review"],
+  ["Mallow yard","Mallow, Cork","4 staff","active"]
+];
+
+/* Records › contacts. EXACTLY 9. Columns: name, role, email, organisation,
+   tag, avatar tint. Tag must be one of: staff, customer, supplier, watch, on stop. */
 const CONTACTS = [
   ["Aoife Nolan","Accounts manager","aoife@kilbridegroup.ie","Kilbride Group","staff","#c8f04b"],
   ["Séamus Byrne","Senior installer","seamus@kilbridegroup.ie","Kilbride Group","staff","#9fd6f0"],
@@ -2727,6 +2808,9 @@ const CONTACTS = [
   ["Cathal Moore","Account manager","cathal@munsterplumbing.ie","Munster Plumbing","supplier","#c8b4f0"]
 ];
 
+/* Records › files. EXACTLY 3 folders and 6 files. `body` is what the agent
+   quotes when asked about the document, so write real-sounding contents.
+   `links` targets should be names that exist in CONTACTS or ORGS. */
 const FILE_TREE = [
   {type:"folder", id:"f-org", name:"Organisations", depth:0},
   {type:"file", id:"fl-1", name:"Casey Builders — framework 2026.pdf", depth:1, parent:"f-org", indexed:true,
@@ -2771,6 +2855,9 @@ const FILE_TREE = [
    links:[["Finance","area"],["Month-end close","workflow"]]}
 ];
 
+/* [STRUCTURE] Records › ontology graph. The entity model itself. Rename the
+   labels to this client's vocabulary if it differs, but keep all 15 nodes and
+   their x/y coordinates - ONTO_EDGES joins them by coordinate. */
 const ONTO_NODES = [
   ["Organisation","entity",500,300,1,"Customers and suppliers. Balances arrive from the ledger through the record spine."],
   ["Person","entity",300,190,1,"One entity for staff and external contacts, scoped by role rather than split in two."],
@@ -2789,6 +2876,8 @@ const ONTO_NODES = [
   ["attached to","predicate",140,372,0,"File → anything."]
 ];
 
+/* [STRUCTURE] Which ontology nodes connect. Coordinate pairs matching
+   ONTO_NODES. Leave alone. */
 const ONTO_EDGES = [
   [500,300,300,190],[500,300,700,190],[500,300,250,430],[500,300,690,430],
   [500,300,850,320],[500,300,390,95],[500,300,620,95],[500,300,140,300],
@@ -2796,6 +2885,7 @@ const ONTO_EDGES = [
   [300,190,140,300],[390,95,620,95]
 ];
 
+/* [STRUCTURE] The record-layout picker. Generic across every business. */
 const REC_TEMPLATES = [
   ["Field sheet","Records","Labelled fields in a grid — the default for a person, organisation or location.",
    "M5 5.5h14v13H5v-13Z M5 10h14 M12 10v8.5","grid"],
@@ -2822,10 +2912,10 @@ const REC_TEMPLATES = [
   ["Schedule","Ops","A calendar of bookings against this record, with recurring rules.",
    "M8 4v3 M16 4v3 M4.5 9.5h15 M6.4 6h11.2A1.9 1.9 0 0 1 19.5 8v10a1.9 1.9 0 0 1-1.9 1.9H6.4A1.9 1.9 0 0 1 4.5 18V8A1.9 1.9 0 0 1 6.4 6Z","schedule"]
 ];
+/* [STRUCTURE] Categories for the picker above. */
 const REC_TEMPLATE_CATS = ["All","Records","Case work","Finance","Notes","Ops"];
 
 /* ---- admin hub ---- */
-/* ---- admin hub: 13 settings areas in five groups ---- */
 const PEOPLE = [
   ["Aoife Nolan","Accounts manager","aoife@kilbridegroup.ie","Head office","active","Admin","2 min ago"],
   ["Séamus Byrne","Senior installer","seamus@kilbridegroup.ie","Ballincollig","active","Standard","1 h ago"],
@@ -2834,10 +2924,18 @@ const PEOPLE = [
   ["Dermot Casey","Buyer · Casey Builders","dermot@caseybuilders.ie","—","external","External","2 days ago"],
   ["Liam Dunne","Owner · Dunne & Sons","liam@dunneandsons.ie","—","inactive","External","19 days ago"]
 ];
+/* [STRUCTURE] Permission levels. Leave alone - the permissions matrix is
+   built from these. */
 const ROLE_LEVELS = ["Admin","Manager","Standard","External"];
+/* [STRUCTURE] The three permissions in the matrix. */
 const PERM_KEYS = [["view","View records"],["edit","Edit records"],["approve","Approve payments"]];
+/* [STRUCTURE] Which level gets which permission. */
 const DEFAULT_PERMS = {Admin:{view:true,edit:true,approve:true}, Manager:{view:true,edit:true,approve:true},
   Standard:{view:true,edit:true,approve:false}, External:{view:true,edit:false,approve:false}};
+/* Admin › connected systems. EXACTLY 7. Replace with the systems this client
+   actually runs. Keep one disconnected and two partial so the failure states
+   have something to show. `glyph` is an SVG path - reuse a near-enough one
+   rather than inventing paths. */
 const INTEGRATIONS = [
   {name:"Gmail", tint:"#ea4335", status:"connected", statusKind:"ok",
    glyph:"M4 7.2 12 13 20 7.2 M4 7.2v10.6h16V7.2 M4 7.2 8.5 4h7L20 7.2",
@@ -2862,6 +2960,8 @@ const INTEGRATIONS = [
    lastSync:"—", usage:"—", auth:"—", scopes:[]}
 ];
 
+/* [STRUCTURE] The eight palettes. To rebrand, see the theme recipe in
+   README.md - do not edit this list. */
 const THEMES = [
   {id:"dark", label:"Dark", group:"Dark", bg:"#0b0c0b", surface:"#1a1c19", ink:"#f2f3ef", accent:"#c8f04b"},
   {id:"indigo", label:"Indigo", group:"Dark", bg:"#0a0b13", surface:"#1a1b26", ink:"#f0f1fa", accent:"#8b93ff"},
@@ -2890,6 +2990,8 @@ const ADMIN_ICONS = {
   data:"M4.5 7.5c0-1.7 3.4-3 7.5-3s7.5 1.3 7.5 3-3.4 3-7.5 3-7.5-1.3-7.5-3Z M4.5 7.5v9c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-9 M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"
 };
 
+/* Admin › the 14 settings areas, grouped by ADMIN_GROUPS. Keep all 14 and
+   their ids; rewrite the copy inside to match this client's systems. */
 const ADMIN_CARDS = [
   {id:"people", group:"ORGANISATION", title:"People & access", icon:"people", tint:"#6ad0f0",
    blurb:"Invite, suspend and offboard the people who use Pulse.",
@@ -2909,11 +3011,11 @@ const ADMIN_CARDS = [
      ["Restrict by team, location or record owner","3 scopes"],["Set approval limits","€10,000 threshold"],["Preview Pulse as another user",""]]},
   {id:"structure", group:"ORGANISATION", title:"Company structure", icon:"structure", tint:"#f0c04b",
    blurb:"Who reports to whom, where they work and when.",
-   tags:["3 locations","Europe/Dublin","EUR"],
+   tags:[LOCATIONS.length + " locations", CONFIG.timezone, CONFIG.currencyCode],
    listLabel:"WHAT YOU CONTROL HERE",
    rows:[["Company details","Kilbride Group"],["Departments","5"],["Teams","6"],["Locations","3"],
      ["Reporting lines","4"],["Working hours","08:00–17:30, Mon–Fri"],["Holidays","Irish public holidays"],
-     ["Default currency and timezone","EUR · Europe/Dublin"]]},
+     ["Default currency and timezone", CONFIG.currencyCode + " · " + CONFIG.timezone]]},
 
   {id:"agents", group:"CONTROL", title:"Agents & AI controls", icon:"agent", tint:"var(--accent)",
    blurb:"What agents may read, what they may do, and where they must stop.",
@@ -3011,6 +3113,7 @@ const ADMIN_CARDS = [
    listLabel:"THEMES", rows:[]}
 ];
 
+/* [STRUCTURE] How the 13 settings areas are grouped. */
 const ADMIN_GROUPS = [
   ["ORGANISATION", "repeat(3,1fr)"],
   ["CONTROL", "repeat(3,1fr)"],
@@ -3020,10 +3123,17 @@ const ADMIN_GROUPS = [
 ];
 
 /* ---- activity feeds ---- */
+/* Activity › colour and two-letter badge per source system. The keys are the
+   source names used in the three event pools below - keep the two internal
+   ones (the product itself and Agent) and swap the rest for this client's
+   systems, matching INTEGRATIONS. */
 const SRC_TINT = {Gmail:"#f07a9d", Pulse:"var(--accent)", Sage:"#6ad0f0", WhatsApp:"#5fe0a8",
   HubSpot:"#f0994b", Xero:"#8fa6ff", Agent:"var(--accent)"};
+/* Activity › two-letter badge per source. Same keys as SRC_TINT. */
 const SRC_ABBR = {Gmail:"GM", Pulse:"PL", Sage:"SG", WhatsApp:"WA", HubSpot:"HS", Xero:"XR", Agent:"AI"};
 
+/* Activity › "new data" feed. EXACTLY 9. Columns: headline, detail, who or what
+   caused it, related record, source system, status. */
 const DATA_EVENTS = [
   ["New customer created","McKenna Transport was added from a web enquiry.","Web form","McKenna Transport","Pulse","completed"],
   ["Invoice imported","INV-10512 for €3,240 arrived from Sage and matched to an open order.","Sage sync","Casey Builders","Sage","completed"],
@@ -3036,10 +3146,12 @@ const DATA_EVENTS = [
   ["External system synced","Xero connection retried and failed — token still expired.","Xero","148 invoices queued","Xero","failed"]
 ];
 
+/* Activity › "employee activity" feed. EXACTLY 8. Same columns as DATA_EVENTS.
+   These are decisions people made, so name real staff from CONTACTS. */
 const PEOPLE_EVENTS = [
   ["Aoife approved a refund","€412 written off on INV-10233 after the parts dispute closed.","Aoife Nolan","Glanmire Mechanical","Pulse","completed"],
   ["Tom changed a booking","Thursday's depot visit moved to 11:00 to fit the delivery window.","Tom Walsh","Ballincollig depot","Pulse","completed"],
-  ["Mac assigned a task","Lease decision handed to himself, due Thursday.","Martin Kilbride","Ballincollig depot","Pulse","completed"],
+  ["Martin assigned a task","Lease decision handed to himself, due Thursday.","Martin Kilbride","Ballincollig depot","Pulse","completed"],
   ["Finance uploaded a report","August month-end close workbook, nine sheets.","Aoife Nolan","Head office","Pulse","completed"],
   ["Niamh edited customer details","Billing email corrected so reminders stop bouncing.","Niamh Cronin","Dunne & Sons Ltd","Pulse","completed"],
   ["Séamus completed a visit","Warranty callback closed — parts ordered on the spot.","Séamus Byrne","Fitzgerald Heating","Pulse","completed"],
@@ -3047,6 +3159,8 @@ const PEOPLE_EVENTS = [
   ["Credit limit increase requested","€10,000 to €18,000 — waiting on the second approval.","Niamh Cronin","Casey Builders","Pulse","awaiting"]
 ];
 
+/* Activity › "AI activity" feed. EXACTLY 8. Same columns. `who` should be an
+   agent named in AGENT_DEFS. */
 const AI_EVENTS = [
   ["Finance Agent checked 143 invoices","Three accounts over their limit and €41.2k past 60 days.","Finance Agent","3 organisations","Agent","working"],
   ["Sales Agent qualified a new lead","McKenna Transport scored 82/100 on company size, location and enquiry detail.","Sales Agent","McKenna Transport","HubSpot","working"],
@@ -3058,6 +3172,7 @@ const AI_EVENTS = [
   ["Briefing Agent posted the morning brief","Two items needed you; the rest was noise.","Briefing Agent","Martin Kilbride","WhatsApp","completed"]
 ];
 
+/* [STRUCTURE] The three activity streams and their tick rates. */
 const STREAM_DEFS = [
   {id:"data", title:"New data", sub:"Information entering Pulse", pool:DATA_EVENTS, every:3200,
    tint:"#6ad0f0", icon:"M4.5 7.5c0-1.7 3.4-3 7.5-3s7.5 1.3 7.5 3-3.4 3-7.5 3-7.5-1.3-7.5-3Z M4.5 7.5v9c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-9 M4.5 12c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3"},
@@ -3067,6 +3182,7 @@ const STREAM_DEFS = [
    tint:"var(--accent)", icon:"M2 12h4l2.5-6 3.5 12 3-8 2 2h5"}
 ];
 
+/* [STRUCTURE] The icon rail. Six destinations, all wired to pages that exist. */
 const NAV = [
   {label:"Home", icon:"helios", page:"Home"},
   {label:"Agents", icon:"navAgents", page:"Agents"},
@@ -3076,7 +3192,10 @@ const NAV = [
   {label:"Activity", icon:"pulseLine", page:"Activity", dot:true}
 ];
 
-/* Inbox items follow the real InboxItem shape: what happened, why it matters, what I can do. */
+/* Home › action inbox. EXACTLY 5 items, keyed po/sync/visit/auto/task.
+   Each answers the three questions: what happened (title), why it matters
+   (why), what I can do (the actions). This is the most-looked-at screen in
+   the demo - write it last, and write it well. */
 const ITEMS = {
   po:{kind:"Approval", importance:"high", icon:ICONS.approvals, age:"18m",
     title:"Purchase order PO-4471 — €14,280",
@@ -3114,8 +3233,11 @@ const ITEMS = {
     fields:[{k:"Provider",v:"core.tasks"},{k:"Due",v:"Thu 27 Aug"},{k:"Assignee",v:"Martin Kilbride"},{k:"Priority",v:"high"}],
     history:[{when:"18 Aug",text:"Task materialised from a recurring rule"},{when:"2 Feb",text:"Contract uploaded by Aoife Nolan"}]}
 };
+/* [STRUCTURE] The order the five inbox items appear in. */
 const ORDER = ["sync","po","visit","auto","task"];
 
+/* Home › canned replies. The agent's answer to each starter prompt. Keys are
+   matched loosely by pickAnswer, so keep the keys and rewrite the bodies. */
 const ANSWERS = {
   credit:{tool:"core_search", effect:"read",
     text:"Three organisations are over their agreed limit this morning, and €41.2k of the balance is past 60 days. Dunne & Sons is the one to act on: days-to-pay went from 12 to 74 since May while order volume held steady.",
@@ -3149,6 +3271,10 @@ const ANSWERS = {
 // always produces the same numbers, with direction and vocabulary nudged by
 // keywords in the text (expansion/growth trends up, risk/issue trends down, a
 // region/cost/people/ops/customer word picks which metrics show).
+/* Dashboard › the free-text filter. A user types "Munster expansion" and this
+   invents a plausible board for it. The keyword lists below decide which
+   vocabulary it reaches for, so swap the place names and the trade words for
+   this client's. The maths underneath is generic - leave it. */
 function synthesizeCustomArea(name){
   const trimmed = (name || "").trim();
   if (!trimmed) return null;
@@ -3170,8 +3296,8 @@ function synthesizeCustomArea(name){
   else if (has("customer","client","retention","account")) vocab = "customer";
 
   const V = {
-    region:   {labels:["New enquiries","Orders won","Revenue","Site coverage"], unit:"EUR — 30 DAYS"},
-    cost:     {labels:["Spend","Cost per job","Savings found","Budget used"], unit:"EUR — 30 DAYS"},
+    region:   {labels:["New enquiries","Orders won","Revenue","Site coverage"], unit:CONFIG.currencyCode + " — 30 DAYS"},
+    cost:     {labels:["Spend","Cost per job","Savings found","Budget used"], unit:CONFIG.currencyCode + " — 30 DAYS"},
     people:   {labels:["Headcount","Open roles","Time to hire","Retention"], unit:"PEOPLE"},
     ops:      {labels:["Stock cover","Lead time","Stockouts","Reorders raised"], unit:"DAYS"},
     customer: {labels:["Active accounts","Repeat rate","Churn","NPS"], unit:"ACCOUNTS"},
@@ -3202,7 +3328,7 @@ function synthesizeCustomArea(name){
   table.push(["Everything else", String(20 + Math.floor(rnd(30) * 200)), "\u2014", "Baseline"]);
   return {
     id: trimmed, label: capName, color: "var(--accent)", owner: "CUSTOM FILTER",
-    description: "Generated from \u201c" + trimmed + "\u201d \u2014 a plain-English filter, not a registered metric set. Refine it and Pulse will tighten this up.",
+    description: "Generated from \u201c" + trimmed + "\u201d \u2014 a plain-English filter, not a registered metric set. Refine it and " + CONFIG.product + " will tighten this up.",
     kind: "columns", chartTitle: capName + " over time", chartUnit: V.unit,
     chart, splitTitle: "Where \u201c" + low + "\u201d shows up", split,
     tableCols: ["Item","Value","Change","Note"], table,
@@ -3210,6 +3336,9 @@ function synthesizeCustomArea(name){
   };
 }
 
+/* Home › which canned reply a typed question gets. The regexes are matched in
+   order, first hit wins, so keep the keywords distinct. Update them to the
+   words this client's staff would actually use. */
 function pickAnswer(q){
   const s = q.toLowerCase();
   if (/visit|site visit|installer/.test(s)) return ANSWERS.visits;
@@ -3220,26 +3349,10 @@ function pickAnswer(q){
   return ANSWERS.fallback;
 }
 
-const ORGS = [
-  ["Dunne & Sons Ltd","Customer","€28,410","74 days","on stop"],
-  ["Casey Builders","Customer","€6,120","12 days","active"],
-  ["Fitzgerald Heating","Customer","€9,240","63 days","watch"],
-  ["Munster Plumbing Supplies","Supplier","—","—","active"],
-  ["Riverside Developments","Customer","€3,560","61 days","watch"],
-  ["Glanmire Mechanical","Customer","€1,180","8 days","active"]
-];
-const TEAMS = [
-  ["Accounts","3 members","Aoife Nolan","core:approval:decide"],
-  ["Installers","9 members","Séamus Byrne","core:task:update"],
-  ["Trade counter","6 members","Niamh Cronin","core:person:view"],
-  ["Management","2 members","Martin Kilbride","all core permissions"]
-];
-const LOCATIONS = [
-  ["Head office","Little Island, Cork","14 staff","active"],
-  ["Ballincollig depot","Ballincollig, Cork","14 staff","lease review"],
-  ["Mallow yard","Mallow, Cork","4 staff","active"]
-];
 
+/* Agents › the agent roster and their conversation threads. This is the second
+   most-looked-at screen. Keep the count and the thread shapes; rewrite what
+   the agents are for and what they say. */
 const AGENT_DEFS = [
   {id:"close", name:"Month-end close", shape:"rim-capsule", tint:"#1b2430", state:"working", group:true,
    members:["credit","briefing","ops"], role:"Credit Control, Briefing and Ops Watchdog working the same close",
@@ -3303,6 +3416,9 @@ const AGENT_DEFS = [
    ]}
 ];
 
+/* Dashboard › the metric tiles. EXACTLY 8. `value` is a display string, so
+   include the currency symbol yourself. `dir` is up or down and drives the
+   colour, so make it agree with the delta. */
 const KPI_DEFS = {
   revenue:{label:"Revenue", value:"€412,800", delta:"+6.2%", dir:"up", hint:"30 days", hero:true},
   cash:{label:"Cash collected", value:"€368,140", delta:"+4.1%", dir:"up", hint:"30 days"},
@@ -3314,9 +3430,12 @@ const KPI_DEFS = {
   utilisation:{label:"Installer hours", value:"84%", delta:"−2pt", dir:"down", hint:"billable share"}
 };
 
+/* Dashboard › one section per business area. Rewrite to this client's areas.
+   `chart` months, `split` and `table` rows all render at fixed sizes - keep
+   the row counts. */
 const ASPECT_DEFS = [
   {id:"sales", label:"Sales", color:"#c8f04b", owner:"NIAMH CRONIN", description:"Counter, trade accounts and quotes out the door.",
-   kind:"columns", chartTitle:"Revenue by month", chartUnit:"EUR",
+   kind:"columns", chartTitle:"Revenue by month", chartUnit:CONFIG.currencyCode,
    chart:[["Sep",288,"€0k"],["Oct",301,"€0k"],["Nov",352,"€0k"],["Dec",376,"€0k"],["Jan",268,"€0k"],["Feb",294,"€0k"],["Mar",318,"€0k"],["Apr",341,"€0k"],["May",362,"€0k"],["Jun",384,"€0k"],["Jul",398,"€0k"],["Aug",413,"€0k"]],
    splitTitle:"Where it came from",
    split:[["Trade counter","€214.6k","72%",1],["Contract accounts","€156.8k","53%",0],["Online orders","€41.4k","18%",0]],
@@ -3360,7 +3479,7 @@ const ASPECT_DEFS = [
      ["Visits completed","38","+11%","up","30 days",[.4,.5,.6,.5,.66,.6,.72,.8,.9]],
      ["Installer hours","84%","−2pt","down","billable",[.8,.78,.8,.76,.78,.74,.76,.72,.7]]]},
   {id:"finance", label:"Finance", color:"#7fd8a4", owner:"AOIFE NOLAN", description:"Cash in, debt ageing and margin after cost.",
-   kind:"area", chartTitle:"Cash collected by month", chartUnit:"EUR",
+   kind:"area", chartTitle:"Cash collected by month", chartUnit:CONFIG.currencyCode,
    chart:[["Sep",252,"€0k"],["Oct",268,"€0k"],["Nov",296,"€0k"],["Dec",318,"€0k"],["Jan",246,"€0k"],["Feb",264,"€0k"],["Mar",288,"€0k"],["Apr",306,"€0k"],["May",324,"€0k"],["Jun",342,"€0k"],["Jul",358,"€0k"],["Aug",368,"€0k"]],
    splitTitle:"Debt by age",
    split:[["0–30 days","€184.2k","61%",1],["31–60 days","€82.4k","27%",0],["61–90 days","€28.6k","9%",0],["90 days plus","€12.6k","4%",0]],
@@ -3383,12 +3502,14 @@ const ASPECT_DEFS = [
      ["Repeat faults","3","−1","up","same site",[.5,.5,.46,.4,.4,.36,.3,.3,.26]]]}
 ];
 
+/* [STRUCTURE] Dashboard filter chips. */
 const FILTER_GROUPS = [
   {title:"AREA", items:["Sales","Development","Marketing","Operations","Finance","Support"]},
   {title:"SPINE", items:["Location","Team","Person","Organisation","Module"]},
   {title:"TIME", items:["This week","This month","This quarter","Year to date"]}
 ];
 
+/* Automations › the operations list with their run history. */
 const OPS_DEFS = [
   {id:"o1", name:"Weekly management report", kind:"report", owner:"Chief of Staff", ownerKind:"agent", initials:"CS",
    trigger:"Mon, 08:00", triggerKind:"schedule", next:"3 days", last:"Sent to 4 people", status:"healthy", rate:98, on:true,
@@ -3469,11 +3590,13 @@ const OPS_DEFS = [
    runs:[["1 Aug 07:00","3m 42s","ok","1 pack","€0.09"],["1 Jul 07:00","3m 51s","ok","1 pack","€0.09"]]}
 ];
 
+/* [STRUCTURE] Filters over OPS_DEFS. */
 const OPS_FILTERS = [
   ["all","All"], ["routine","Agent routines"], ["automation","Automations"],
   ["report","Scheduled reports"], ["task","Recurring tasks"], ["approval","Needs approval"], ["failed","Failed"]
 ];
 
+/* [STRUCTURE] The four tabs on Work and the views inside each. */
 const WORK_SECTIONS = [
   {id:"tasks", label:"Tasks", blurb:"Everything assigned to you or your team, in one permission-filtered list.",
    views:["All tasks","Due tasks","Review","Done"], filters:["Due date","Any status","Anyone","Any due date"]},
@@ -3485,6 +3608,8 @@ const WORK_SECTIONS = [
    views:[], filters:[]}
 ];
 
+/* Work › the task table. EXACTLY 6. `who` is initials from CONTACTS; `view`
+   must be one of the views listed in WORK_SECTIONS. */
 const WORK_TASKS = [
   {id:"w1", title:"Chase INV-10428 — Dunne & Sons", status:"In progress", priority:"High", who:"AN",
    due:"2d overdue", late:true, client:"Dunne & Sons Ltd", day:"Today", mins:"25 mins", view:"Due tasks"},
@@ -3500,6 +3625,7 @@ const WORK_TASKS = [
    due:"Filed Friday", late:false, client:"Head office", day:"Fri", mins:"2 hours", view:"Done", done:true}
 ];
 
+/* Work › workflows. EXACTLY 4, one of them failing. `runs` is 14 entries. */
 const WORKFLOWS = [
   {name:"Overdue invoice reminder", state:"live", trigger:"schedule · daily 08:00",
    actions:[["notify.email","write"],["tasks.create","write"]], lastRun:"Today 08:00",
@@ -3519,6 +3645,7 @@ const WORKFLOWS = [
    runs:["ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","failed","failed","failed","failed"]}
 ];
 
+/* Work › schedules. EXACTLY 5. Names should match WORKFLOWS and AGENT_DEFS. */
 const SCHEDULES = [
   {id:"s1", name:"Morning briefing", cadence:"Every weekday · 07:00", next:"Tomorrow 07:00", owner:"Briefing agent", on:true, day:1},
   {id:"s2", name:"Overdue invoice reminder", cadence:"Daily · 08:00", next:"Tomorrow 08:00", owner:"Credit Control", on:true, day:1},
@@ -3527,33 +3654,329 @@ const SCHEDULES = [
   {id:"s5", name:"Month-end close", cadence:"Last working day · 17:00", next:"Fri 17:00", owner:"Month-end close", on:true, day:4}
 ];
 
+/* [STRUCTURE] Which widgets can appear on Home. */
 const WIDGET_DEFS = [["inbox","Action inbox"],["work","My work"],["activity","Activity"],["kpi","Today's numbers"],["visits","Site visits"]];
+/* Work › the four counters at the top. EXACTLY 4. `queue` values are fixed. */
 const WORK_WIDGETS = [
   {id:"queue", label:"My queue", value:"8", hint:"assigned to you", icon:"work", queue:"mine"},
   {id:"late", label:"Running late", value:"11", hint:"past their due date", icon:"health", queue:"overdue"},
   {id:"unassigned", label:"Unassigned", value:"1", hint:"nobody owns it yet", icon:"teams", queue:"unassigned"},
   {id:"week", label:"Next 7 days", value:"4", hint:"due this week", icon:"visits", queue:"upcoming"}
 ];
+/* Agents › tone options in the builder. */
 const PERSONALITIES = ["Straight-talking","Warm","Formal","Dry"];
+/* Agents › answer-style options in the builder. */
 const ANSWER_STYLES = ["Short answers","Show the working","Ask before acting"];
+/* Agents › what an agent can read. Should match the record types this
+   client actually has. */
 const CONTEXT_SOURCES = ["Organisations","People","Tasks","Invoices","Site visits","Files"];
+/* Agents › what an agent can do. Second value is the effect class and drives
+   whether the action needs a confirmation: read | write | external.
+   Keep at least one of each. */
 const SKILL_DEFS = [["Search records","read"],["Draft email","write"],["Create task","write"],["Summarise activity","read"],["Send WhatsApp","external"],["Post to Xero","external"]];
-/* The words under a name, keyed to the same state the face lights with. */
+/* [STRUCTURE] The words under an agent's name, keyed to the state its face
+   lights with. */
 const STATE_LABELS = {working:"working", thinking:"thinking", waiting:"waiting on you",
   complete:"up to date", attention:"needs you", idle:"idle"};
 
+/* [STRUCTURE] Agent avatar shapes. */
 const FACE_SHAPES = [
   ["crown-pebble","Crown pebble"],["executive-capsule","Executive capsule"],["shield","Shield"],
   ["glass-visor","Glass visor"],["control-cube","Control cube"],["low-dome","Low dome"],
   ["offset-pebble","Offset pebble"],["rim-capsule","Rim capsule"],["wide-eyed","Wide-eyed"],
   ["precision-brow","Precision brow"],["tall-unit","Tall unit"],["soft-asymmetric","Soft asymmetric"]
 ];
-/* Shell colours only — deliberately desaturated so none of them reads as a
-   state. The eyes, rim and dots always carry the state colour. */
+/* [STRUCTURE] Agent avatar shell colours - deliberately desaturated so none of
+   them reads as a state. The eyes, rim and dots carry the state colour. */
 const FACE_TINTS = [
   ["#191c1f","Graphite"],["#1b2430","Slate"],["#241b2e","Aubergine"],
   ["#2a2118","Bronze"],["#16241f","Pine"],["#2b1b1e","Oxblood"]
 ];
+
+/*  PAGE DATA  ---------------------------------------------------------------
+    Lifted out of the render pass so every string a demo shows lives above the
+    wall. Same rules as the rest of the edit zone: keep the counts, keep the
+    shape.                                                                    */
+
+/* Work › queue list. EXACTLY 8. `who` must be initials from STAFF; `queue`
+   values are fixed: mine | team | overdue | unassigned | upcoming. */
+const QUEUE_TASKS = [
+  {id:"t1", title:"Chase INV-10428 — Dunne & Sons", due:"09:30", who:"AN", queue:["mine","overdue"], subject:"Dunne & Sons Ltd", priority:"high", late:true},
+  {id:"t2", title:"Reassign Van 04 jobs off Ballincollig", due:"11:00", who:"MK", queue:["mine","overdue"], subject:"Ballincollig depot", priority:"high", late:true},
+  {id:"t3", title:"Approve purchase order PO-4471", due:"12:00", who:"MK", queue:["mine"], subject:"PO-4471", priority:"normal"},
+  {id:"t4", title:"Call Casey Builders about Thursday", due:"14:00", who:"TW", queue:["mine","team"], subject:"Casey Builders", priority:"normal"},
+  {id:"t5", title:"Sign off August counter stocktake", due:"16:30", who:"SB", queue:["team"], subject:"Head office", priority:"low"},
+  {id:"t6", title:"Assign installer to Thursday depot visit", due:"Tomorrow", who:"—", queue:["unassigned","upcoming"], subject:"site-visits.visit", priority:"high"},
+  {id:"t7", title:"VAT return — August", due:"Fri", who:"AN", queue:["team","upcoming"], subject:"Head office", priority:"normal"},
+  {id:"t8", title:"Ballincollig lease decision", due:"Thu", who:"MK", queue:["mine","upcoming"], subject:"Ballincollig depot", priority:"high"}
+];
+
+/* Work › approvals. EXACTLY 3. At least one step must name CONFIG.owner.name
+   with state "pending", or the "Awaiting you" tab renders empty. */
+const APPROVAL_ROWS = [
+  {id:"a1", title:"Purchase order PO-4471 — €14,280", subject:"Munster Plumbing Supplies · raised by Aoife Nolan", age:"18m", status:"awaiting you",
+   steps:[{who:"Aoife Nolan",state:"raised 08:54",dot:GREEN},{who:"Martin Kilbride",state:"pending",dot:AMBER}]},
+  {id:"a2", title:"Credit limit increase — Casey Builders", subject:"€10,000 → €18,000 · raised by Niamh Cronin", age:"Yesterday", status:"awaiting you",
+   steps:[{who:"Niamh Cronin",state:"raised 16:02",dot:GREEN},{who:"Aoife Nolan",state:"approved 16:40",dot:GREEN},{who:"Martin Kilbride",state:"pending",dot:AMBER}]},
+  {id:"a3", title:"Write-off — INV-10233 €412", subject:"Glanmire Mechanical · raised by Aoife Nolan", age:"2 days", status:"approved",
+   steps:[{who:"Aoife Nolan",state:"raised",dot:GREEN},{who:"Martin Kilbride",state:"approved",dot:GREEN}]}
+];
+
+/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
+   nothing navigates to it, so this data never reaches a screen. It was
+   already dead before the template was cut. Kept because the page is worth
+   reviving; skip it on a customisation pass unless the page comes back. */
+/* Dashboard › revenue split by site. EXACTLY 3, highest first. Keys should be
+   LOCATIONS names. Values are raw numbers — money() adds the currency. */
+const REVENUE_SPLIT = [
+  ["Head office", 214600, "72%"],
+  ["Ballincollig depot", 156800, "53%"],
+  ["Mallow yard", 41400, "18%"]
+];
+
+/* Admin hub › the four attention tiles. EXACTLY 4. Last value is the settings
+   area it opens — keep those four ids. */
+const ADMIN_URGENT = [
+  ["3", "employees awaiting access", AMBER, "var(--warn-soft)", "people"],
+  ["1", "integration disconnected", RED, "var(--bad-soft)", "integrations"],
+  ["74", "duplicate records", AMBER, "var(--warn-soft)", "health"],
+  ["2", "security recommendations", AMBER, "var(--warn-soft)", "security"]
+];
+/* Automations page. EXACTLY 4, and one of them should be failing so the
+   failure states have something to show. `runs` is 14 entries of
+   ok | partial | failed | idle. */
+const AUTOMATION_ROWS = [
+  {name:"Overdue invoice reminder", state:"live", stateBg:"var(--ok-soft)", stateColor:GREEN,
+   trigger:"schedule · daily 08:00", actions:[{label:"notify.email", border:"var(--bad-soft)", color:AMBER},{label:"tasks.create", border:"var(--track)", color:BODY}],
+   lastRun:"Today 08:00", result:"6 of 10 sent · partial", resultColor:AMBER, hasRuns:true, runSummary:"11 ok · 3 partial",
+   runs:["ok","ok","partial","ok","ok","ok","partial","ok","ok","ok","ok","ok","partial","partial"]},
+  {name:"Approval routing over €10k", state:"live", stateBg:"var(--ok-soft)", stateColor:GREEN,
+   trigger:"event · core.approval.created", actions:[{label:"approvals.route", border:"var(--track)", color:BODY},{label:"notify.inbox", border:"var(--track)", color:BODY}],
+   lastRun:"Today 08:54", result:"ok", resultColor:GREEN, hasRuns:true, runSummary:"14 ok",
+   runs:["ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok"]},
+  {name:"Unassigned visit escalation", state:"live", stateBg:"var(--ok-soft)", stateColor:GREEN,
+   trigger:"event · site-visits.visit.created", actions:[{label:"notify.inbox", border:"var(--track)", color:BODY}],
+   lastRun:"Today 07:00", result:"ok", resultColor:GREEN, hasRuns:true, runSummary:"9 ok · 1 failed",
+   runs:["idle","idle","ok","ok","failed","ok","ok","ok","idle","ok","ok","ok","ok","ok"]},
+  {name:"Xero invoice sync", state:"failing", stateBg:"var(--bad-soft)", stateColor:RED,
+   trigger:"schedule · hourly", actions:[{label:"xero.post", border:"var(--bad-soft)", color:RED}],
+   lastRun:"Today 02:14", result:"invalid_grant · dead-lettered", resultColor:RED, hasRuns:true, runSummary:"4 failed",
+   runs:["ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","failed","failed","failed","failed"]}
+];
+
+/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
+   nothing navigates to it, so this data never reaches a screen. It was
+   already dead before the template was cut. Kept because the page is worth
+   reviving; skip it on a customisation pass unless the page comes back. */
+/* System health › queue tiles. EXACTLY 4. */
+const HEALTH_TILES = [
+  {label:"Events waiting", value:"12", hint:"oldest 4 minutes ago", color:INK, border:"var(--track)"},
+  {label:"Being processed", value:"3", hint:"claimed by a worker", color:INK, border:"var(--track)"},
+  {label:"Dead letters", value:"2", hint:"gave up after retrying", color:RED, border:"var(--bad-soft)"},
+  {label:"Failed deliveries", value:"5", hint:"across 2 subscribers", color:AMBER, border:"var(--warn-soft)"}
+];
+
+/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
+   nothing navigates to it, so this data never reaches a screen. It was
+   already dead before the template was cut. Kept because the page is worth
+   reviving; skip it on a customisation pass unless the page comes back. */
+/* System health › recent failures. EXACTLY 3. Names should match AUTOMATION_ROWS. */
+const HEALTH_FAILURES = [
+  {name:"Xero invoice sync", status:"failed", error:"invalid_grant: refresh token expired", at:"02:14", tagBg:"var(--bad-soft)", tagColor:RED},
+  {name:"Overdue invoice reminder", status:"partial", error:"notify.email: 4 records missing billing_email", at:"08:00", tagBg:"var(--warn-soft)", tagColor:AMBER},
+  {name:"Unassigned visit escalation", status:"failed", error:"notify.inbox: actor has no grant for core:notification:create", at:"Mon", tagBg:"var(--bad-soft)", tagColor:RED}
+];
+
+/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
+   nothing navigates to it, so this data never reaches a screen. It was
+   already dead before the template was cut. Kept because the page is worth
+   reviving; skip it on a customisation pass unless the page comes back. */
+/* System health › external tool calls. EXACTLY 5. Tools should be the ones
+   INTEGRATIONS lists. */
+const HEALTH_CALLS = [
+  {tool:"xero.invoices.post", status:"failed", ms:"1,204 ms", at:"02:14", tagBg:"var(--bad-soft)", tagColor:RED},
+  {tool:"whatsapp.messages.send", status:"ok", ms:"412 ms", at:"07:02", tagBg:"var(--ok-soft)", tagColor:GREEN},
+  {tool:"resend.email.send", status:"ok", ms:"286 ms", at:"08:00", tagBg:"var(--ok-soft)", tagColor:GREEN},
+  {tool:"resend.email.send", status:"failed", ms:"94 ms", at:"08:00", tagBg:"var(--bad-soft)", tagColor:RED},
+  {tool:"anthropic.messages", status:"ok", ms:"2,940 ms", at:"09:11", tagBg:"var(--ok-soft)", tagColor:GREEN}
+];
+
+/* Notifications page. EXACTLY 6. `event` strings are engine event names —
+   keep the core.* ones; a module may contribute its own. */
+const NOTIFICATION_FEED = [
+  {dot:LIME, text:"Aoife Nolan assigned you “Approve purchase order PO-4471”", event:"core.approval.created", channel:"Inbox", meta:"18m"},
+  {dot:RED, text:"Xero invoice sync failed — refresh token expired", event:"core.automation.failed", channel:"Inbox · WhatsApp", meta:"6h"},
+  {dot:AMBER, text:"Helios flagged a change in Dunne & Sons payment behaviour", event:"core.notification.created", channel:"Inbox", meta:"2h"},
+  {dot:AMBER, text:"Thursday's depot visit is still unassigned", event:"site-visits.visit.created", channel:"Inbox", meta:"2h"},
+  {dot:NEUTRAL, text:"Séamus Byrne mentioned you on “Reassign Van 04 jobs”", event:"core.comment.created", channel:"Inbox", meta:"Yesterday"},
+  {dot:NEUTRAL, text:"Your daily briefing is ready", event:"core.briefing.sent", channel:"WhatsApp", meta:"07:00"}
+];
+
+/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
+   nothing navigates to it, so this data never reaches a screen. It was
+   already dead before the template was cut. Kept because the page is worth
+   reviving; skip it on a customisation pass unless the page comes back. */
+/* Modules page. EXACTLY 4: core, the installed fixture, a showcase, and one
+   "available" module to show what could be switched on. Swap the last one for
+   whatever vertical module this client would actually buy next. */
+const MODULE_ROWS = [
+  {label:"Pulse Core", id:"core", version:"0.1.0", state:"always installed", bg:"var(--surface)", border:"var(--track)",
+   stateBg:"var(--track)", stateColor:BODY,
+   description:"People, organisations, locations, teams and the relationships between them — registered through the same contract a module uses.",
+   contributions:[{n:"31",k:"routes"},{n:"10",k:"nav items"},{n:"21",k:"events"},{n:"7",k:"predicates"},{n:"64",k:"permissions"}]},
+  {label:"Site visits", id:"site-visits", version:"1.0.0", state:"installed", bg:"var(--accent-faint)", border:"var(--accent-line)",
+   stateBg:"var(--accent-soft)", stateColor:LIME,
+   description:"The fixture that proves the architecture holds: an entity with a real table, a predicate, two Helios tools, a metric, an event, a trigger, a page and a nav item. Not one line of core changes to install it.",
+   contributions:[{n:"1",k:"entity"},{n:"2",k:"helios tools"},{n:"4",k:"metrics"},{n:"1",k:"predicate"},{n:"1",k:"trigger"}]},
+  {label:"UI showcase", id:"ui-showcase", version:"0.1.0", state:"installed", bg:"var(--surface)", border:"var(--track)",
+   stateBg:"var(--accent-soft)", stateColor:LIME,
+   description:"Component sheet, directory and record fixtures used to review the primitives before they reach a client build.",
+   contributions:[{n:"3",k:"pages"},{n:"1",k:"widget"},{n:"0",k:"tables"}]},
+  {label:"Wholesale", id:"wholesale", version:"—", state:"available", bg:"var(--surface-faint)", border:"var(--track)",
+   stateBg:"var(--track)", stateColor:FAINT,
+   description:"Orders, price lists, stock and purchase orders. One line in this client's config would add its pages, permissions, events and Helios tools.",
+   contributions:[{n:"6",k:"entities"},{n:"9",k:"helios tools"},{n:"12",k:"events"}]}
+];
+
+/* Home › the three starter prompts under the composer. EXACTLY 3.
+   [what the chip says, what actually gets asked]. Both must have an answer in
+   ANSWERS or pickAnswer falls back to the generic reply. */
+const HOME_SUGGESTIONS = [
+  ["Which organisations are over their limit?", "Which organisations are over their credit limit?"],
+  ["What is overdue in my work?", "Summarise the tasks running late"],
+  ["What visits are booked this week?", "What site visits are booked this week?"]
+];
+
+/* Home › activity widget. EXACTLY 5, newest first. Mix of a person, the agent
+   and an automation so the widget shows all three sources. */
+const HOME_ACTIVITY = [
+  {who:"Aoife Nolan", what:"raised purchase order PO-4471", event:"core.approval.created", when:"18m", dot:LIME},
+  {who:"Helios", what:"flagged Dunne & Sons payment behaviour", event:"core.notification.created", when:"2h", dot:AMBER},
+  {who:"Tom Walsh", what:"created a depot stock check visit", event:"site-visits.visit.created", when:"Yesterday", dot:NEUTRAL},
+  {who:"Overdue reminder", what:"sent 6 of 10 emails", event:"core.automation.failed", when:"08:00", dot:AMBER},
+  {who:"Dispatcher", what:"dead-lettered 2 Xero deliveries", event:"core.event.dead", when:"02:16", dot:RED}
+];
+
+/* The three chips in the docked Helios panel. EXACTLY 3.
+   [chip label, question actually asked]. */
+const MINI_SUGGESTIONS = [
+  ["What changed today?", "What changed today?"],
+  ["What needs my decision?", "What needs my decision?"],
+  ["Draft a chase for the worst account", "Draft chase emails"]
+];
+
+/* Home › site-visits widget. EXACTLY 3. Format is "job type · who or where".
+   Rename to whatever this business actually books: inspections, fittings,
+   consultations, deliveries. */
+const VISIT_WIDGET = [
+  {title:"Boiler service · Casey Builders", when:"Wed 09:00", dot:LIME},
+  {title:"Pre-install survey · Ó Riain", when:"Wed 14:00", dot:LIME},
+  {title:"Depot check · Ballincollig", when:"Thu 09:00", dot:AMBER}
+];
+
+/* Work › "next to run" strip. EXACTLY 3. Names must exist in SCHEDULES. */
+const SCHEDULE_NEXT = [
+  {name:"Morning briefing", when:"Tomorrow 07:00", dot:LIME},
+  {name:"Overdue invoice reminder", when:"Tomorrow 08:00", dot:LIME},
+  {name:"Weekly stock check", when:"Thu 09:00", dot:AMBER}
+];
+
+/* Agents › what the builder says it did while training. EXACTLY 4.
+   Line 3 names the sector — change it to this client's. */
+const TRAIN_LOG = (contextCount) => [
+  {text:"Read " + contextCount + " entity types from the record spine", meta:"4,820 records", dot:LIME},
+  {text:"Learned the terminology this client uses", meta:"organisation → merchant", dot:LIME},
+  {text:"Researched the trade-supply domain", meta:"12 sources", dot:LIME},
+  {text:"Wrote a system prompt and pinned it to this agent", meta:"1,240 tokens", dot:LIME}
+];
+
+/* Settings › roles. EXACTLY 4, most-privileged first. Rename to this client's
+   job titles; leave the core:* grant strings alone, they are engine names. */
+const ROLES = [
+  {name:"Owner", grants:"all core permissions + site-visits:*", scope:"all", users:"1"},
+  {name:"Accounts", grants:"core:organisation:*, core:approval:decide, core:task:*", scope:"all", users:"3"},
+  {name:"Installer", grants:"core:task:view, core:task:update, site-visits:visit:*", scope:"own", users:"9"},
+  {name:"Counter staff", grants:"core:person:view, core:organisation:view", scope:"location", users:"6"}
+];
+
+/* Activity › the four counters across the top. EXACTLY 4. Third value is the
+   filter each one applies — keep all | people | ai | attention. */
+const ACTIVITY_KPIS = [
+  ["Events today", "1,284", "all", "across every source", LIME],
+  ["Employees active", "42", "people", "of 48 with access", "#f0c04b"],
+  ["AI actions", "318", "ai", "by 7 installed agents", "#6ad0f0"],
+  ["Need attention", "7", "attention", "failed or awaiting a yes", RED]
+];
+
+/* Automations › the plan the builder writes from a plain-English description.
+   EXACTLY 8 rows, in this order: TRIGGER, FIND, CONDITION, ACTION, AGENT,
+   APPROVAL, ON FAILURE, NOTIFY. Keep the labels; rewrite the values to an
+   automation this business would actually want. */
+const BUILDER_BLOCKS = [
+  ["TRIGGER", "Every Friday at 17:00", "From “every Friday” in your description", "var(--accent-line)", "var(--accent)"],
+  ["FIND", "All open deals with no activity for 10 days", "", "var(--border)", "var(--faint)"],
+  ["CONDITION", "Skip deals already marked won or lost", "", "var(--border)", "var(--faint)"],
+  ["ACTION", "Flag each one and write a management summary", "", "var(--border)", "var(--faint)"],
+  ["AGENT", "Sales Agent", "It already has the deal context", "var(--border)", "var(--faint)"],
+  ["APPROVAL", "None — nothing leaves " + CONFIG.product, "Add one if you want it emailed out", "var(--warn-soft)", AMBER],
+  ["ON FAILURE", "Retry twice, then tell Operations", "", "var(--border)", "var(--faint)"],
+  ["NOTIFY", "Post to Home and the management group", "", "var(--border)", "var(--faint)"]
+];
+
+/* Command palette › the two "recent" chips. EXACTLY 2: a record they opened
+   and an agent or workflow they ran. */
+const PALETTE_RECENT = ["Dunne & Sons Ltd", "Credit Control"];
+
+/* Records › contacts search. EXACTLY 4 suggestions, and they must actually
+   match something in CONTACTS or the demo searches to an empty list. */
+const CONTACT_SEARCH = {
+  placeholder: "Try “buyers in Cork”, “installers”, “on stop”…",
+  suggestions: ["on stop", "installer", "Casey", "supplier"]
+};
+
+/* Activity › the before/after card on an opened event. EXACTLY 3 fields. */
+const EVENT_DIFF = [
+  {field:"Status", before:"active", after:"on stop"},
+  {field:"Credit limit", before:"€20,000", after:"€20,000"},
+  {field:"Billing email", before:"—", after:"accounts@dunneandsons.ie"}
+];
+
+/* Command palette › most-used destinations. EXACTLY 6, highest count first.
+   `page` and `params` are engine routing - only titles and counts change. */
+const PALETTE_FREQUENT = [
+  {title:"Action inbox",     count:"31×", icon:"inbox",       page:"Home"},
+  {title:"Approvals",        count:"24×", icon:"approvals",   page:"Work",      params:{workSection:"approvals"}},
+  {title:"Overdue invoices", count:"18×", icon:"insights",    page:"Dashboard", params:{aspect:"cash"}},
+  {title:"Dunne & Sons Ltd", count:"12×", icon:"orgs",        page:"Records",   params:{recSection:"contacts", record:"org"}},
+  {title:"Month-end close",  count:"9×",  icon:"agents",      page:"Agents",    params:{agentId:"monthend"}},
+  {title:"Site visits",      count:"7×",  icon:"visits",      page:"Work",      params:{workSection:"schedules"}}
+];
+
+/* Home › what the focus timer starts on if nothing is picked. Should be the
+   first entry in QUEUE_TASKS. */
+const DEFAULT_TIMER_TASK = "Chase INV-10428 — Dunne & Sons";
+
+/* Docked panel › notifications tab. EXACTLY 3, shortest form of the top three
+   in NOTIFICATION_FEED. */
+const MINI_NOTIFICATIONS = [
+  "Xero token expired — reconnect",
+  "Aoife raised a €14,280 approval",
+  "3 accounts moved off Standard rate"
+];
+
+/* Records › the ghost text in the "new record" dialog. One line: an example
+   record name a user here would actually type. */
+const NEW_RECORD_PLACEHOLDER = "Casey Builders — 2026 framework";
+
+/* ========================================================================== */
+/*                                                                            */
+/*   E N G I N E   W A L L   -   nothing below this line is business content  */
+/*                                                                            */
+/*   Graph maths, layout, state, event plumbing and the render pass. If a     */
+/*   customisation pass needs to change something down here, the data model   */
+/*   above is missing a field - add it there instead.                         */
+/*                                                                            */
+/* ========================================================================== */
 
 /* ---- ontology graph: generation, Dijkstra traversal, canvas render ---- */
 const CLUSTERS = [
@@ -3754,7 +4177,7 @@ function buildGraph(){
 }
 
 class Component extends DCLogic {
-  state = { w: typeof window === "undefined" ? 1440 : window.innerWidth, theme:"dark", page:"Home", draft:"", query:"", thread:[], typed:0, paletteOpen:false, showNotifs:false, palScope:"All", palSel:0, palRecent:["Dunne & Sons Ltd","Credit Control"],
+  state = { w: typeof window === "undefined" ? 1440 : window.innerWidth, theme:"dark", page:"Home", draft:"", query:"", thread:[], typed:0, paletteOpen:false, showNotifs:false, palScope:"All", palSel:0, palRecent:PALETTE_RECENT,
             done:{}, resolved:{}, approved:{}, inboxFilter:"All", approvalFilter:"Awaiting you", open:null, range:"30d",
             queue:"mine", recordTab:"Overview", record:"person", hovered:null, hoverLabel:"", hoverHint:"", hoverTop:0,
             flags:{approvals:true, automations:true, insights:true, customEntities:false, whatsapp:true, composio:false},
@@ -4694,7 +5117,7 @@ class Component extends DCLogic {
 
     const calModel = {
       monthLabel: st.opsScope === "week" ? "This week · 26 Aug" : "August 2026",
-      hint: "Everything Pulse will do on its own, and when.",
+      hint: "Everything " + CONFIG.product + " will do on its own, and when.",
       load: (st.opsOrder || ["o5","o2","o3","o10","o4","o6","o9","o8"]).length + " routines",
       scopes: [["week","Week"],["month","Month"]].map(s => ({label:s[1],
         style: "height:26px;padding:0 12px;border:0;border-radius:999px;cursor:pointer;font-size:11.5px;"
@@ -4855,22 +5278,13 @@ class Component extends DCLogic {
       placeholder:BUILDER_COPY.placeholder, saveLabel:BUILDER_COPY.save,
       text: st.builderText, generated: st.builderGenerated,
       generateLabel: st.builderGenerated ? "Rebuild from the description" : "Build it",
-      footer: st.builderGenerated ? "Steps with effects always wait for your yes" : "Describe the outcome — Pulse works out the steps",
+      footer: st.builderGenerated ? "Steps with effects always wait for your yes" : "Describe the outcome — " + CONFIG.product + " works out the steps",
       examples: BUILDER_COPY.examples.map(e => ({label:e, use: () => this.setState({builderText:e, builderGenerated:false})})),
       setText: (e) => this.setState({builderText:e.target.value}),
       generate: () => this.setState({builderGenerated:true}),
       close: () => this.setState({opsBuilderOpen:false}),
       save: () => this.setState({opsBuilderOpen:false, opsFilter:"all"}),
-      blocks: [
-        ["TRIGGER", "Every Friday at 17:00", "From “every Friday” in your description", "var(--accent-line)", "var(--accent)"],
-        ["FIND", "All open deals with no activity for 10 days", "", "var(--border)", "var(--faint)"],
-        ["CONDITION", "Skip deals already marked won or lost", "", "var(--border)", "var(--faint)"],
-        ["ACTION", "Flag each one and write a management summary", "", "var(--border)", "var(--faint)"],
-        ["AGENT", "Sales Agent", "It already has the deal context", "var(--border)", "var(--faint)"],
-        ["APPROVAL", "None — nothing leaves Pulse", "Add one if you want it emailed out", "var(--warn-soft)", AMBER],
-        ["ON FAILURE", "Retry twice, then tell Operations", "", "var(--border)", "var(--faint)"],
-        ["NOTIFY", "Post to Home and the management group", "", "var(--border)", "var(--faint)"]
-      ].map(b => ({label:b[0], value:b[1], note:b[2], border:b[3], labelColor:b[4], edit: () => {}}))
+      blocks: BUILDER_BLOCKS.map(b => ({label:b[0], value:b[1], note:b[2], border:b[3], labelColor:b[4], edit: () => {}}))
     };
 
     /* ---- records: contacts, files, ontology ---- */
@@ -4918,10 +5332,10 @@ class Component extends DCLogic {
     const HERO = {
       contacts:{eyebrow:"CONTACTS · " + CONTACTS.length + " ON FILE", title:"Everyone you deal with",
         blurb:"Staff and external in one place. Ask in your own words — it matches on name, role, organisation and tag.",
-        placeholder:"Try “buyers in Cork”, “installers”, “on stop”…", kind:"KEYWORD", scroll:"SCROLL FOR THE FULL LIST",
-        suggestions:["on stop","installer","Casey","supplier"]},
+        placeholder:CONTACT_SEARCH.placeholder, kind:"KEYWORD", scroll:"SCROLL FOR THE FULL LIST",
+        suggestions:CONTACT_SEARCH.suggestions},
       files:{eyebrow:"FILES · " + FILE_TREE.filter(r => r.type === "file").length + " DOCUMENTS",
-        title:"Everything on record", blurb:"Contracts, certificates and invoices. Indexed pages are the ones Helios can read from.",
+        title:"Everything on record", blurb:"Contracts, certificates and invoices. Indexed pages are the ones " + CONFIG.agent + " can read from.",
         placeholder:"Search inside every document…", kind:"FULL TEXT", scroll:"SCROLL FOR THE VIEWER",
         suggestions:["credit","expiry","framework","invoice"]},
       ontology:{eyebrow:"ONTOLOGY", title:"Ontology", blurb:recSec.blurb,
@@ -5088,13 +5502,8 @@ class Component extends DCLogic {
     };
 
     const adminModel = {
-      company: "Kilbride Group",
-      urgent: [
-        ["3", "employees awaiting access", AMBER, "var(--warn-soft)", "people"],
-        ["1", "integration disconnected", RED, "var(--bad-soft)", "integrations"],
-        ["74", "duplicate records", AMBER, "var(--warn-soft)", "health"],
-        ["2", "security recommendations", AMBER, "var(--warn-soft)", "security"]
-      ].map(u => ({count:u[0], label:u[1], dot:u[2], border:u[3],
+      company: CONFIG.company,
+      urgent: ADMIN_URGENT.map(u => ({count:u[0], label:u[1], dot:u[2], border:u[3],
         go: () => this.setState({adminOpen:u[4]})})),
       groups: ADMIN_GROUPS.filter(grp => !st.adminGroup || grp[0] === st.adminGroup).map(grp => ({
         label: grp[0], cols: grp[1],
@@ -5194,12 +5603,7 @@ class Component extends DCLogic {
         + "transition:background .2s var(--ease),border-color .2s var(--ease);"
         + (st.actPaused ? "background:var(--accent);border:1px solid var(--accent);color:var(--on-accent)"
                         : "background:var(--chip);border:1px solid var(--chip-border);color:var(--body)"),
-      kpis: [
-        ["Events today", "1,284", "all", "across every source", LIME],
-        ["Employees active", "42", "people", "of 48 with access", "#f0c04b"],
-        ["AI actions", "318", "ai", "by 7 installed agents", "#6ad0f0"],
-        ["Need attention", "7", "attention", "failed or awaiting a yes", RED]
-      ].map((k, ki) => {
+      kpis: ACTIVITY_KPIS.map((k, ki) => {
         const on = st.actKpi === k[2];
         return {label:k[0], value:k[1], hint:k[3], dot:k[4],
           labelColor: on ? "var(--on-accent-2)" : "var(--dim)",
@@ -5253,7 +5657,7 @@ class Component extends DCLogic {
           + "border-radius:10px;font-size:12.5px;color:var(--dim);cursor:pointer;white-space:nowrap;transition:border-color .2s var(--ease),color .2s var(--ease)",
         pick: () => {}})),
       audit: auditRows.slice(0, 12).map(e => ({
-        when: new Date(e.at).toLocaleTimeString("en-IE", {hour:"2-digit", minute:"2-digit", second:"2-digit"}),
+        when: new Date(e.at).toLocaleTimeString(CONFIG.locale, {hour:"2-digit", minute:"2-digit", second:"2-digit"}),
         title:e.title, actor:e.actor, rel:e.rel, src:e.src,
         status: (STATUS_TINT2[e.status] || STATUS_TINT2.completed)[2],
         statusStyle: statusChip(e.status),
@@ -5274,12 +5678,10 @@ class Component extends DCLogic {
               : "A person with the permission to do it made this decision, and it was written as them.",
           facts: [{k:"RESPONSIBLE", v:openEvent.actor}, {k:"SOURCE SYSTEM", v:openEvent.src},
             {k:"RELATED RECORD", v:openEvent.rel}, {k:"STATUS", v:t[2]},
-            {k:"WHEN", v: new Date(openEvent.at).toLocaleTimeString("en-IE")},
+            {k:"WHEN", v: new Date(openEvent.at).toLocaleTimeString(CONFIG.locale)},
             {k:"EVENT ID", v: openEvent.id.toUpperCase()}],
           hasDiff: openEvent.stream === "people" || openEvent.stream === "data",
-          diff: [{field:"Status", before:"active", after:"on stop"},
-            {field:"Credit limit", before:"€20,000", after:"€20,000"},
-            {field:"Billing email", before:"—", after:"accounts@dunneandsons.ie"}],
+          diff: EVENT_DIFF,
           related: [openEvent.rel, openEvent.actor, openEvent.src],
           audit: "Written to the event log · immutable · " + openEvent.id.toUpperCase(),
           canUndo: openEvent.stream === "people" && openEvent.status === "completed"};
@@ -5289,8 +5691,8 @@ class Component extends DCLogic {
     const g = this.graph, live = this.searches || [];
     const PHASE_WORD = {sweep:"expanding", path:"tracing", hold:"matched", fade:"clearing"};
     const graphModel = {
-      nodeCount: g ? g.nodes.length.toLocaleString("en-IE") : "—",
-      edgeCount: g ? g.edges.length.toLocaleString("en-IE") : "—",
+      nodeCount: g ? g.nodes.length.toLocaleString(CONFIG.locale) : "—",
+      edgeCount: g ? g.edges.length.toLocaleString(CONFIG.locale) : "—",
       running: live.filter(s => s.delay <= 0).length + " OF " + live.length,
       queries: live.map((s, i) => {
         const settled = Math.min(s.order.length, Math.floor(s.reveal));
@@ -5374,6 +5776,7 @@ class Component extends DCLogic {
 
     const newRecModel = {
       open: st.newRecOpen, name: st.newRecName,
+      placeholder: NEW_RECORD_PLACEHOLDER,
       footer: st.newRecName.trim() ? "Saves into " + recSec.label.toLowerCase() : "Every record gets an id, an owner and an audit trail",
       setName: (e) => this.setState({newRecName:e.target.value}),
       close: () => this.setState({newRecOpen:false}),
@@ -5444,16 +5847,7 @@ class Component extends DCLogic {
     const pillStyle = (active) => "height:30px;padding:0 15px;border:0;border-radius:999px;cursor:pointer;font-size:12.5px;white-space:nowrap;transition:background .24s var(--ease),color .24s var(--ease);"
       + (active ? "background:var(--pill-bg);color:var(--pill-ink);font-weight:500" : "background:none;color:var(--dim)");
 
-    const TASKS = [
-      {id:"t1", title:"Chase INV-10428 — Dunne & Sons", due:"09:30", who:"AN", queue:["mine","overdue"], subject:"Dunne & Sons Ltd", priority:"high", late:true},
-      {id:"t2", title:"Reassign Van 04 jobs off Ballincollig", due:"11:00", who:"MK", queue:["mine","overdue"], subject:"Ballincollig depot", priority:"high", late:true},
-      {id:"t3", title:"Approve purchase order PO-4471", due:"12:00", who:"MK", queue:["mine"], subject:"PO-4471", priority:"normal"},
-      {id:"t4", title:"Call Casey Builders about Thursday", due:"14:00", who:"TW", queue:["mine","team"], subject:"Casey Builders", priority:"normal"},
-      {id:"t5", title:"Sign off August counter stocktake", due:"16:30", who:"SB", queue:["team"], subject:"Head office", priority:"low"},
-      {id:"t6", title:"Assign installer to Thursday depot visit", due:"Tomorrow", who:"—", queue:["unassigned","upcoming"], subject:"site-visits.visit", priority:"high"},
-      {id:"t7", title:"VAT return — August", due:"Fri", who:"AN", queue:["team","upcoming"], subject:"Head office", priority:"normal"},
-      {id:"t8", title:"Ballincollig lease decision", due:"Thu", who:"MK", queue:["mine","upcoming"], subject:"Ballincollig depot", priority:"high"}
-    ];
+    const TASKS = QUEUE_TASKS;
     const decorateTask = (t) => {
       const done = !!st.done[t.id];
       return Object.assign({}, t, {
@@ -5485,16 +5879,9 @@ class Component extends DCLogic {
     }));
     const queueTasks = (st.queue === "all" ? TASKS : TASKS.filter(t => t.queue.includes(st.queue))).map(decorateTask);
 
-    const APPROVALS = [
-      {id:"a1", title:"Purchase order PO-4471 — €14,280", subject:"Munster Plumbing Supplies · raised by Aoife Nolan", age:"18m", status:"awaiting you",
-       steps:[{who:"Aoife Nolan",state:"raised 08:54",dot:GREEN},{who:"Martin Kilbride",state:"pending",dot:AMBER}]},
-      {id:"a2", title:"Credit limit increase — Casey Builders", subject:"€10,000 → €18,000 · raised by Niamh Cronin", age:"Yesterday", status:"awaiting you",
-       steps:[{who:"Niamh Cronin",state:"raised 16:02",dot:GREEN},{who:"Aoife Nolan",state:"approved 16:40",dot:GREEN},{who:"Martin Kilbride",state:"pending",dot:AMBER}]},
-      {id:"a3", title:"Write-off — INV-10233 €412", subject:"Glanmire Mechanical · raised by Aoife Nolan", age:"2 days", status:"approved",
-       steps:[{who:"Aoife Nolan",state:"raised",dot:GREEN},{who:"Martin Kilbride",state:"approved",dot:GREEN}]}
-    ];
+    const APPROVALS = APPROVAL_ROWS;
     const bucketOf = (a) => a.status === "approved" ? "Decided"
-      : a.steps.some(s => s.state === "pending" && s.who === "Martin Kilbride") ? "Awaiting you" : "Awaiting others";
+      : a.steps.some(s => s.state === "pending" && s.who === CONFIG.owner.name) ? "Awaiting you" : "Awaiting others";
     const APPROVAL_COUNTS = {"Awaiting you":0, "Awaiting others":0, "Decided":0};
     APPROVALS.filter(a => !st.approved[a.id]).forEach(a => { APPROVAL_COUNTS[bucketOf(a)] += 1; });
     const approvalView = st.workViews.approvals || "Awaiting you";
@@ -5542,7 +5929,7 @@ class Component extends DCLogic {
     const limeBars = (arr) => arr.map((v,i,a) => ({h: Math.max(3, Math.round(v*28))+"px", bg: i === a.length-1 ? "var(--on-accent-strong)" : "var(--on-accent-soft)"}));
     const rangeLabel = {"7d":"7 days","30d":"30 days","90d":"90 days"}[st.range];
     const scale = {"7d":0.3,"30d":1,"90d":2.7}[st.range];
-    const money = (n) => "€" + Math.round(n*scale).toLocaleString("en-IE");
+    const money = (n) => CONFIG.currency + Math.round(n*scale).toLocaleString(CONFIG.locale);
 
     const metricGroups = [
       {title:"Operations", description:"Universal measures every deployment has.", hasBreakdown:true,
@@ -5556,11 +5943,8 @@ class Component extends DCLogic {
         {label:"Approvals waiting", value:String(approvals.filter(a => a.pending).length), change:"−1", changeColor:delta("up"), hint:"oldest 18m",
          cardBg:"var(--surface)", cardBorder:"var(--track)", ink:INK, bars:bars([.4,.5,.44,.6,.5,.55,.48,.6,.5,.45], AMBER)}
        ],
-       breakdown:[
-        {key:"Head office", value:money(214600), pct:"72%", color:LIME},
-        {key:"Ballincollig depot", value:money(156800), pct:"53%", color:"var(--track)"},
-        {key:"Mallow yard", value:money(41400), pct:"18%", color:"var(--track)"}
-       ]},
+       breakdown: REVENUE_SPLIT.map((b, i) => ({key:b[0], value:money(b[1]), pct:b[2],
+         color: i === 0 ? LIME : "var(--track)"}))},
       {title:"site-visits", description:"Contributed by an installed module.", hasBreakdown:false,
        metrics:[
         {label:"Visits completed", value:String(Math.round(38*scale)), change:"+11%", changeColor:delta("up"), hint:"vs previous "+rangeLabel,
@@ -5576,71 +5960,15 @@ class Component extends DCLogic {
 
     const runBar = (state) => ({ok:"var(--accent)", partial:"var(--warn)", failed:"var(--bad)", idle:"var(--track)"})[state];
     const runs = (pattern) => pattern.map(p => ({bg:runBar(p), label:p}));
-    const automations = [
-      {name:"Overdue invoice reminder", state:"live", stateBg:"var(--ok-soft)", stateColor:GREEN,
-       trigger:"schedule · daily 08:00", actions:[{label:"notify.email", border:"var(--bad-soft)", color:AMBER},{label:"tasks.create", border:"var(--track)", color:BODY}],
-       lastRun:"Today 08:00", result:"6 of 10 sent · partial", resultColor:AMBER, hasRuns:true, runSummary:"11 ok · 3 partial",
-       runs:runs(["ok","ok","partial","ok","ok","ok","partial","ok","ok","ok","ok","ok","partial","partial"])},
-      {name:"Approval routing over €10k", state:"live", stateBg:"var(--ok-soft)", stateColor:GREEN,
-       trigger:"event · core.approval.created", actions:[{label:"approvals.route", border:"var(--track)", color:BODY},{label:"notify.inbox", border:"var(--track)", color:BODY}],
-       lastRun:"Today 08:54", result:"ok", resultColor:GREEN, hasRuns:true, runSummary:"14 ok",
-       runs:runs(["ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","ok"])},
-      {name:"Unassigned visit escalation", state:"live", stateBg:"var(--ok-soft)", stateColor:GREEN,
-       trigger:"event · site-visits.visit.created", actions:[{label:"notify.inbox", border:"var(--track)", color:BODY}],
-       lastRun:"Today 07:00", result:"ok", resultColor:GREEN, hasRuns:true, runSummary:"9 ok · 1 failed",
-       runs:runs(["idle","idle","ok","ok","failed","ok","ok","ok","idle","ok","ok","ok","ok","ok"])},
-      {name:"Xero invoice sync", state:"failing", stateBg:"var(--bad-soft)", stateColor:RED,
-       trigger:"schedule · hourly", actions:[{label:"xero.post", border:"var(--bad-soft)", color:RED}],
-       lastRun:"Today 02:14", result:"invalid_grant · dead-lettered", resultColor:RED, hasRuns:true, runSummary:"4 failed",
-       runs:runs(["ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","failed","failed","failed","failed"])}
-    ];
+    const automations = AUTOMATION_ROWS.map(a => Object.assign({}, a, {runs:runs(a.runs)}));
 
-    const health = [
-      {label:"Events waiting", value:"12", hint:"oldest 4 minutes ago", color:INK, border:"var(--track)"},
-      {label:"Being processed", value:"3", hint:"claimed by a worker", color:INK, border:"var(--track)"},
-      {label:"Dead letters", value:"2", hint:"gave up after retrying", color:RED, border:"var(--bad-soft)"},
-      {label:"Failed deliveries", value:"5", hint:"across 2 subscribers", color:AMBER, border:"var(--warn-soft)"}
-    ];
-    const failures = [
-      {name:"Xero invoice sync", status:"failed", error:"invalid_grant: refresh token expired", at:"02:14", tagBg:"var(--bad-soft)", tagColor:RED},
-      {name:"Overdue invoice reminder", status:"partial", error:"notify.email: 4 records missing billing_email", at:"08:00", tagBg:"var(--warn-soft)", tagColor:AMBER},
-      {name:"Unassigned visit escalation", status:"failed", error:"notify.inbox: actor has no grant for core:notification:create", at:"Mon", tagBg:"var(--bad-soft)", tagColor:RED}
-    ];
-    const calls = [
-      {tool:"xero.invoices.post", status:"failed", ms:"1,204 ms", at:"02:14", tagBg:"var(--bad-soft)", tagColor:RED},
-      {tool:"whatsapp.messages.send", status:"ok", ms:"412 ms", at:"07:02", tagBg:"var(--ok-soft)", tagColor:GREEN},
-      {tool:"resend.email.send", status:"ok", ms:"286 ms", at:"08:00", tagBg:"var(--ok-soft)", tagColor:GREEN},
-      {tool:"resend.email.send", status:"failed", ms:"94 ms", at:"08:00", tagBg:"var(--bad-soft)", tagColor:RED},
-      {tool:"anthropic.messages", status:"ok", ms:"2,940 ms", at:"09:11", tagBg:"var(--ok-soft)", tagColor:GREEN}
-    ];
+    const health = HEALTH_TILES;
+    const failures = HEALTH_FAILURES;
+    const calls = HEALTH_CALLS;
 
-    const modules = [
-      {label:"Pulse Core", id:"core", version:"0.1.0", state:"always installed", bg:"var(--surface)", border:"var(--track)",
-       stateBg:"var(--track)", stateColor:BODY,
-       description:"People, organisations, locations, teams and the relationships between them — registered through the same contract a module uses.",
-       contributions:[{n:"31",k:"routes"},{n:"10",k:"nav items"},{n:"21",k:"events"},{n:"7",k:"predicates"},{n:"64",k:"permissions"}]},
-      {label:"Site visits", id:"site-visits", version:"1.0.0", state:"installed", bg:"var(--accent-faint)", border:"var(--accent-line)",
-       stateBg:"var(--accent-soft)", stateColor:LIME,
-       description:"The fixture that proves the architecture holds: an entity with a real table, a predicate, two Helios tools, a metric, an event, a trigger, a page and a nav item. Not one line of core changes to install it.",
-       contributions:[{n:"1",k:"entity"},{n:"2",k:"helios tools"},{n:"4",k:"metrics"},{n:"1",k:"predicate"},{n:"1",k:"trigger"}]},
-      {label:"UI showcase", id:"ui-showcase", version:"0.1.0", state:"installed", bg:"var(--surface)", border:"var(--track)",
-       stateBg:"var(--accent-soft)", stateColor:LIME,
-       description:"Component sheet, directory and record fixtures used to review the primitives before they reach a client build.",
-       contributions:[{n:"3",k:"pages"},{n:"1",k:"widget"},{n:"0",k:"tables"}]},
-      {label:"Wholesale", id:"wholesale", version:"—", state:"available", bg:"var(--surface-faint)", border:"var(--track)",
-       stateBg:"var(--track)", stateColor:FAINT,
-       description:"Orders, price lists, stock and purchase orders. One line in this client's config would add its pages, permissions, events and Helios tools.",
-       contributions:[{n:"6",k:"entities"},{n:"9",k:"helios tools"},{n:"12",k:"events"}]}
-    ];
+    const modules = MODULE_ROWS;
 
-    const notificationFeed = [
-      {dot:LIME, text:"Aoife Nolan assigned you “Approve purchase order PO-4471”", event:"core.approval.created", channel:"Inbox", meta:"18m"},
-      {dot:RED, text:"Xero invoice sync failed — refresh token expired", event:"core.automation.failed", channel:"Inbox · WhatsApp", meta:"6h"},
-      {dot:AMBER, text:"Helios flagged a change in Dunne & Sons payment behaviour", event:"core.notification.created", channel:"Inbox", meta:"2h"},
-      {dot:AMBER, text:"Thursday's depot visit is still unassigned", event:"site-visits.visit.created", channel:"Inbox", meta:"2h"},
-      {dot:NEUTRAL, text:"Séamus Byrne mentioned you on “Reassign Van 04 jobs”", event:"core.comment.created", channel:"Inbox", meta:"Yesterday"},
-      {dot:NEUTRAL, text:"Your daily briefing is ready", event:"core.briefing.sent", channel:"WhatsApp", meta:"07:00"}
-    ];
+    const notificationFeed = NOTIFICATION_FEED;
 
     const FEATURES = [["approvals","Approvals"],["automations","Automations"],["insights","Insights"],["customEntities","Custom entities"],["whatsapp","WhatsApp channel"],["composio","Composio actions"]];
     const features = FEATURES.map(f => {
@@ -5669,7 +5997,7 @@ class Component extends DCLogic {
       recents.length ? {group:"Recent", scope:"All", items:recents.slice(0, 3).map(r => ({title:r, meta:"Recent search", hint:"AGAIN", glyph:"recent",
         go: () => this.setState({query:r, palSel:0})}))} : null,
       {group:"Actions", scope:"Actions", items:[
-        {title:"Start a new Helios conversation", meta:"Clears the current thread", hint:"ACTION", glyph:"action",
+        {title:"Start a new " + CONFIG.agent + " conversation", meta:"Clears the current thread", hint:"ACTION", glyph:"action",
           go: () => { clearInterval(this._t); this.setState({page:"Home", thread:[], typed:0, draft:""}); }},
         {title:"Review approvals waiting on you", meta:"Work · approvals", hint:"ACTION", glyph:"action",
           go: () => this.setState({page:"Work", queue:"mine"})},
@@ -5749,7 +6077,7 @@ class Component extends DCLogic {
     const jump = (p, extra) => () => this.setState(Object.assign({page:p, paletteOpen:false, query:"", palSel:0}, extra || {}));
     const KITS = {
       Home: [
-        {title:"Ask what changed today", meta:"Helios · briefing", icon:ICONS.helios, go: () => { clearInterval(this._t); this.setState({paletteOpen:false, query:"", page:"Home"}); this.ask("What changed today?"); }},
+        {title:"Ask what changed today", meta:CONFIG.agent + " · briefing", icon:ICONS.helios, go: () => { clearInterval(this._t); this.setState({paletteOpen:false, query:"", page:"Home"}); this.ask("What changed today?"); }},
         {title:"Action inbox", meta:openKeys.length + " waiting on you", icon:ICONS.inbox, go: jump("Home", {open:null})},
         {title:"Edit widgets", meta:"Rearrange the right rail", icon:ICONS.dash, go: jump("Home", {widgetEdit:true})},
         {title:"My work", meta:"Tasks due today", icon:ICONS.work, go: jump("Work", {queue:"mine"})}
@@ -5780,7 +6108,7 @@ class Component extends DCLogic {
       ],
       Activity: [
         {title:"Needs attention", meta:"Failures and retries", icon:ICONS.health, go: jump("Activity", {actKpi:"attention"})},
-        {title:"Agent events", meta:"Only what Helios did", icon:ICONS.agents, go: jump("Activity", {actKpi:"ai"})},
+        {title:"Agent events", meta:"Only what " + CONFIG.agent + " did", icon:ICONS.agents, go: jump("Activity", {actKpi:"ai"})},
         {title:"People events", meta:"Only what the team did", icon:ICONS.people, go: jump("Activity", {actKpi:"people"})},
         {title:"Everything", meta:"Full audit trail", icon:ICONS.navActivity, go: jump("Activity", {actKpi:"all"})}
       ],
@@ -5792,19 +6120,12 @@ class Component extends DCLogic {
       ]
     };
     const palPageRaw = KITS[page] || [
-      {title:"Ask Helios about this page", meta:"It sees what you see", icon:ICONS.helios, go: () => { this.setState({paletteOpen:false, query:"", page:"Home"}); this.ask("What should I know about " + page + "?"); }},
+      {title:"Ask " + CONFIG.agent + " about this page", meta:"It sees what you see", icon:ICONS.helios, go: () => { this.setState({paletteOpen:false, query:"", page:"Home"}); this.ask("What should I know about " + page + "?"); }},
       {title:"Action inbox", meta:openKeys.length + " waiting on you", icon:ICONS.inbox, go: jump("Home")},
       {title:"My work", meta:"Tasks due today", icon:ICONS.work, go: jump("Work", {queue:"mine"})},
       {title:"Records", meta:"Every record you can see", icon:ICONS.navRecords, go: jump("Records")}
     ];
-    const FREQ = [
-      {title:"Action inbox", count:"31×", icon:ICONS.inbox, go: jump("Home")},
-      {title:"Approvals", count:"24×", icon:ICONS.approvals, go: jump("Work", {workSection:"approvals"})},
-      {title:"Overdue invoices", count:"18×", icon:ICONS.insights, go: jump("Dashboard", {aspect:"cash"})},
-      {title:"Dunne & Sons Ltd", count:"12×", icon:ICONS.orgs, go: jump("Records", {recSection:"contacts", record:"org"})},
-      {title:"Month-end close", count:"9×", icon:ICONS.agents, go: jump("Agents", {agentId:"monthend"})},
-      {title:"Site visits", count:"7×", icon:ICONS.visits, go: jump("Work", {workSection:"schedules"})}
-    ];
+    const FREQ = PALETTE_FREQUENT.map(f => Object.assign({}, f, {icon:ICONS[f.icon], go: jump(f.page, f.params)}));
     const JUMPS = [
       {title:"Home", icon:ICONS.navHome, go: jump("Home")},
       {title:"Work", icon:ICONS.navWork, go: jump("Work")},
@@ -5961,6 +6282,14 @@ class Component extends DCLogic {
       brandStyle: railOpen
         ? "flex:1;min-width:0;font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;opacity:1"
         : "display:none",
+      /* Names on the chrome. Everything here comes from CONFIG, so a rename is
+         one edit rather than a hunt through the markup. */
+      company: CONFIG.company,
+      ownerName: CONFIG.owner.name,
+      ownerRole: CONFIG.owner.role,
+      ownerInitials: CONFIG.owner.initials,
+      composerPlaceholder: "Ask " + CONFIG.product + " anything…",
+      miniPlaceholder: "Ask " + CONFIG.agent + " anything",
       railToggleStyle: "width:28px;height:28px;flex:none;border:0;border-radius:9px;background:none;color:var(--mid);cursor:pointer;"
         + "display:flex;align-items:center;justify-content:center;transition:background .2s var(--ease),color .2s var(--ease);"
         + (railOpen ? "" : "position:absolute;opacity:0;pointer-events:none"),
@@ -6000,15 +6329,11 @@ class Component extends DCLogic {
         const d = KPI_DEFS[k];
         return {label:d.label, value:d.value, delta:d.delta, deltaColor: d.dir === "up" ? GREEN : RED};
       }),
-      visitWidget: [
-        {title:"Boiler service · Casey Builders", when:"Wed 09:00", dot:LIME},
-        {title:"Pre-install survey · Ó Riain", when:"Wed 14:00", dot:LIME},
-        {title:"Depot check · Ballincollig", when:"Thu 09:00", dot:AMBER}
-      ],
+      visitWidget: VISIT_WIDGET,
 
       /* dashboard */
       isDashboard: page === "Dashboard",
-      dashTitle: "Kilbride Group · " + areaLabel,
+      dashTitle: CONFIG.company + " · " + areaLabel,
       kpiEdit: st.kpiEdit,
       toggleKpiEdit: () => this.setState(prev => ({kpiEdit: !prev.kpiEdit})),
       kpiEditLabel: st.kpiEdit ? "Done" : "Edit KPIs",
@@ -6207,7 +6532,7 @@ class Component extends DCLogic {
           buttonLabel: running ? "Pause" : "Start",
           buttonIcon: running ? "M9 5.5v13 M15 5.5v13" : "M7 4.5v15l13-7.5-13-7.5Z",
           toggle: () => this.setState(prev => ({timerRunning: !prev.timerRunning,
-            timerTask: prev.timerTask || "Chase INV-10428 — Dunne & Sons",
+            timerTask: prev.timerTask || DEFAULT_TIMER_TASK,
             timerPreset: prev.timerPreset || 25})),
           reset: () => this.setState({timerRunning:false, timerTask:null, timerPreset:null}),
           complete: () => this.setState({timerRunning:false, timerTask:null})
@@ -6293,11 +6618,7 @@ class Component extends DCLogic {
                : n ? "background:var(--surface-2);border:1px solid var(--border);color:" + BODY
                    : "background:none;border:1px dashed var(--border);color:" + FAINT)};
       }),
-      scheduleNext: [
-        {name:"Morning briefing", when:"Tomorrow 07:00", dot:LIME},
-        {name:"Overdue invoice reminder", when:"Tomorrow 08:00", dot:LIME},
-        {name:"Weekly stock check", when:"Thu 09:00", dot:AMBER}
-      ],
+      scheduleNext: SCHEDULE_NEXT,
 
       /* home widget board */
       workWidgetHint: "TASK QUEUE · " + queueTasks.length + " SHOWN",
@@ -6378,7 +6699,7 @@ class Component extends DCLogic {
 
       /* mini chat */
       showFab: page !== "Home" && page !== "Agents",
-      fabTitle: st.miniOpen ? "Close Helios" : "Ask Helios",
+      fabTitle: (st.miniOpen ? "Close " : "Ask ") + CONFIG.agent,
       fabChatStyle: "position:absolute;inset:0;transition:transform .34s var(--ease),opacity .24s var(--ease);"
         + (st.miniOpen ? "transform:rotate(-90deg) scale(.7);opacity:0" : "transform:none;opacity:1"),
       fabCloseStyle: "position:absolute;inset:0;transition:transform .34s var(--ease),opacity .24s var(--ease);"
@@ -6399,7 +6720,7 @@ class Component extends DCLogic {
         return "position:absolute;top:2px;bottom:2px;left:2px;width:calc(50% - 2px);border-radius:999px;background:var(--pill-bg);"
           + "transform:translateX(" + (idx * 100) + "%);transition:transform .3s var(--ease)";
       })(),
-      miniTabs: [["chat","Helios"],["work","Work"]].map(t => {
+      miniTabs: [["chat",CONFIG.agent],["work","Work"]].map(t => {
         const on = (st.miniTab || "chat") === t[0];
         return {label:t[1],
           style: "position:relative;z-index:1;flex:1;height:28px;padding:0;border:0;border-radius:999px;background:none;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;transition:color .24s var(--ease);"
@@ -6408,16 +6729,12 @@ class Component extends DCLogic {
       }),
       miniHasRecent: st.thread.length > 0,
       miniRecent: st.thread.length > 0 ? [{title: (st.thread.find(m => m.role === "user") || {}).text || "Recent conversation",
-        date: new Date().toLocaleDateString("en-GB"), open: () => this.setState({page:"Home", miniOpen:false})}] : [],
+        date: new Date().toLocaleDateString(CONFIG.locale), open: () => this.setState({page:"Home", miniOpen:false})}] : [],
       miniEmpty: st.miniThread.length === 0,
       miniGreeting: (() => { const h = new Date().getHours();
         const g = h < 5 ? "Still up" : h < 12 ? "Good morning" : h < 17 ? "Good afternoon" : h < 22 ? "Good evening" : "Still going";
-        return g + ", Mac"; })(),
-      miniSuggestions: [
-        {label:"What changed today?", run:() => this.askMini("What changed today?")},
-        {label:"What needs my decision?", run:() => this.askMini("What needs my decision?")},
-        {label:"Draft a chase for the worst account", run:() => this.askMini("Draft chase emails")}
-      ],
+        return g + ", " + CONFIG.owner.firstName; })(),
+      miniSuggestions: MINI_SUGGESTIONS.map(s => ({label:s[0], run:() => this.askMini(s[1])})),
       miniWorkSections: (() => {
         const openTasks = WORK_TASKS.filter(t => t.status !== "Done").slice(0, 4);
         const meetingsOpen = (st.miniWorkOpen || "tasks") === "meetings";
@@ -6440,9 +6757,7 @@ class Component extends DCLogic {
           {num:"03", title:"Notifications", icon:"M12 4a5.5 5.5 0 0 0-5.5 5.5v3.2L5 16h14l-1.5-3.3V9.5A5.5 5.5 0 0 0 12 4Z M9.8 19a2.2 2.2 0 0 0 4.4 0",
             statusText:"12 unread", statusColor:"#6ad0f0", open:notifsOpen, toggle:toggle("notifications"),
             isEmpty:false, emptyText:"",
-            rows:[{isCheck:false, title:"Xero token expired — reconnect", hasTag:false},
-              {isCheck:false, title:"Aoife raised a €14,280 approval", hasTag:false},
-              {isCheck:false, title:"3 accounts moved off Standard rate", hasTag:false}],
+            rows:MINI_NOTIFICATIONS.map(t => ({isCheck:false, title:t, hasTag:false})),
             hasLink:true, linkLabel:"All notifications", linkGo: () => this.setState({showNotifs:true, miniOpen:false}),
             wrapStyle: "background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden"}
         ];
@@ -6518,12 +6833,7 @@ class Component extends DCLogic {
       trainLabel: st.trained ? "Retrain" : "Train agent",
       train: () => this.setState({trained:true}),
       trainSteps: st.trained,
-      trainLog: [
-        {text:"Read " + st.agentSpec.context.length + " entity types from the record spine", meta:"4,820 records", dot:LIME},
-        {text:"Learned the terminology this client uses", meta:"organisation → merchant", dot:LIME},
-        {text:"Researched the trade-supply domain", meta:"12 sources", dot:LIME},
-        {text:"Wrote a system prompt and pinned it to this agent", meta:"1,240 tokens", dot:LIME}
-      ],
+      trainLog: TRAIN_LOG(st.agentSpec.context.length),
       builderFooter: st.agentSpec.skills.filter(s => (SKILL_DEFS.find(d => d[0] === s) || [])[1] !== "read").length
         + " skills have effects — those always wait for your yes",
       saveLabel: st.builderMode === "tune" ? "Save changes" : "Create agent",
@@ -6616,7 +6926,7 @@ class Component extends DCLogic {
         }
         return this._greetPick;
       })(),
-      greetingName: "Mac",
+      greetingName: CONFIG.owner.firstName,
       flipUnits: this.buildFlipUnits(BODY, INK, LIME),
       enterSettings: (e) => this.hover("__settings", "Settings", "", e),
       leaveSettings: () => this.unhover("__settings"),
@@ -6659,33 +6969,18 @@ class Component extends DCLogic {
           actions:(m.actions || []).map(a => ({label:a[0], bg:a[1] ? LIME : "none", color:a[1] ? "var(--on-accent)" : "var(--ink)", border:a[1] ? LIME : "var(--border)", run:() => this.ask(a[0])}))
         };
       }),
-      suggestions: [
-        {label:"Which organisations are over their limit?", run:() => this.ask("Which organisations are over their credit limit?")},
-        {label:"What is overdue in my work?", run:() => this.ask("Summarise the tasks running late")},
-        {label:"What visits are booked this week?", run:() => this.ask("What site visits are booked this week?")}
-      ],
-      activity: [
-        {who:"Aoife Nolan", what:"raised purchase order PO-4471", event:"core.approval.created", when:"18m", dot:LIME},
-        {who:"Helios", what:"flagged Dunne & Sons payment behaviour", event:"core.notification.created", when:"2h", dot:AMBER},
-        {who:"Tom Walsh", what:"created a depot stock check visit", event:"site-visits.visit.created", when:"Yesterday", dot:NEUTRAL},
-        {who:"Overdue reminder", what:"sent 6 of 10 emails", event:"core.automation.failed", when:"08:00", dot:AMBER},
-        {who:"Dispatcher", what:"dead-lettered 2 Xero deliveries", event:"core.event.dead", when:"02:16", dot:RED}
-      ],
+      suggestions: HOME_SUGGESTIONS.map(s => ({label:s[0], run:() => this.ask(s[1])})),
+      activity: HOME_ACTIVITY,
       notifications: notificationFeed.slice(0,4).map(n => ({dot:n.dot, text:n.text, meta:n.meta + " · " + n.event})),
       deployment: [
-        {k:"Client", v:"kilbride", font:MONO},
-        {k:"App name", v:"Kilbride Group Operations", font:"inherit"},
+        {k:"Client", v:CONFIG.slug, font:MONO},
+        {k:"App name", v:CONFIG.appName, font:"inherit"},
         {k:"Accent", v:"oklch(0.86 0.19 118)", font:MONO},
         {k:"Terminology", v:"organisation → Merchant", font:"inherit"},
-        {k:"Locale", v:"EUR · Europe/Dublin", font:"inherit"},
-        {k:"Helios channels", v:"home, whatsapp", font:MONO}
+        {k:"Locale", v:CONFIG.currencyCode + " · " + CONFIG.timezone, font:"inherit"},
+        {k:CONFIG.agent + " channels", v:"home, whatsapp", font:MONO}
       ],
-      roles: [
-        {name:"Owner", grants:"all core permissions + site-visits:*", scope:"all", users:"1"},
-        {name:"Accounts", grants:"core:organisation:*, core:approval:decide, core:task:*", scope:"all", users:"3"},
-        {name:"Installer", grants:"core:task:view, core:task:update, site-visits:visit:*", scope:"own", users:"9"},
-        {name:"Counter staff", grants:"core:person:view, core:organisation:view", scope:"location", users:"6"}
-      ],
+      roles: ROLES,
       team: [{i:"AN",bg:"var(--accent)"},{i:"SB",bg:"#9fd6f0"},{i:"TW",bg:"#e6c78a"}],
       paletteOpen: st.paletteOpen, showNotifs: st.showNotifs, query: st.query, draft: st.draft,
       noResults: results.length === 0,

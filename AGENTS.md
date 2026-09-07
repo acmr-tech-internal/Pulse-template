@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 Read this before touching anything.
 
