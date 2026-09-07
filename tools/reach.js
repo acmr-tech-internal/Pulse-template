@@ -14,12 +14,10 @@ const FILE = process.argv[2] || "Pulse v4 Glass.dc.html";
 const src = fs.readFileSync(FILE, "utf8");
 const js = src.match(/<script type="text\/x-dc" data-dc-script[^>]*>([\s\S]*)<\/script>/)[1];
 
-/* Blocks whose page exists but is not currently navigable. Already dead when
-   this template was cut; listed so the check stays quiet about them. Delete a
-   name from here if its page comes back. */
-const KNOWN_UNREACHABLE = new Set([
-  "REVENUE_SPLIT", "HEALTH_TILES", "HEALTH_FAILURES", "HEALTH_CALLS", "MODULE_ROWS"
-]);
+/* Blocks that render nowhere. REVENUE_SPLIT feeds `metricGroups`, a second
+   dashboard view that was never given markup - the Dashboard renders
+   ASPECT_DEFS instead. Delete a name from here if its consumer comes back. */
+const KNOWN_UNREACHABLE = new Set(["REVENUE_SPLIT"]);
 
 const BLOCKS = [
   "ORGS","TEAMS","LOCATIONS","CONTACTS","FILE_TREE","PEOPLE","INTEGRATIONS",
@@ -49,15 +47,24 @@ try {
 }
 const Component = mod.exports.Component;
 
-/* A phrase worth probing with: prose rather than an id or a CSS value. */
-const phrases = (v, out = []) => {
-  if (typeof v === "string") {
-    if (v.length > 12 && v.includes(" ") && !v.includes("var(--") &&
-        !/^[a-z]+[:.]/.test(v) && !/^[MmLlHhVvCcZz][\d\s.,-]/.test(v)) out.push(v);
-  } else if (v && typeof v === "object") {
-    for (const k of Object.keys(v)) phrases(v[k], out);
-  }
+/* Something worth probing with. Prose first - a sentence is unmistakable in the
+   rendered output. Some blocks hold nothing but identifiers (a list of tool
+   names, say), so fall back to the longest plain string rather than skipping
+   the block entirely. Colours and SVG paths are never useful probes. */
+const usable = (v) => typeof v === "string" && v.length > 6 &&
+  !v.includes("var(--") && !/^#[0-9a-f]{3,8}$/i.test(v) &&
+  !/^[MmLlHhVvCcZzAaQqSsTt][\d\s.,-]/.test(v);
+
+const collect = (v, out = []) => {
+  if (typeof v === "string") { if (usable(v)) out.push(v); }
+  else if (v && typeof v === "object") { for (const k of Object.keys(v)) collect(v[k], out); }
   return out;
+};
+
+const phrases = (v) => {
+  const all = collect(v);
+  const prose = all.filter(x => x.length > 12 && x.includes(" ") && !/^[a-z]+[:.]/.test(x));
+  return prose.length ? prose : all.sort((a, b) => b.length - a.length).slice(0, 5);
 };
 
 const out = [];

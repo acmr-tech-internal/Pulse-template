@@ -82,17 +82,18 @@ ever re-cut this template against a different fixture, replace that list.
 
 Node is the only requirement, any recent version. Nothing to install.
 
-## Known gap: three pages you cannot open
+## Pages
 
-`Automations`, `System health` and `Installed modules` are built, and their data
-is in the edit zone, but nothing navigates to them — the only link to them is
-the context nav that appears once you are already on one. This was true before
-the template was cut; it is not something a customisation pass caused.
+Ten screens: Home, Agents, Dashboard, Work, Records, Activity, Settings, plus
+Automations, System health and Installed modules. The last three had data but
+no markup when the mockup was imported; they are built and reachable now, from
+the command palette or the context nav that runs across the top of all three.
 
-The five data blocks that feed them are marked `[NOT CURRENTLY RENDERED]` in
-the file, and `tools/reach.js` skips them by name. Skip them when customising.
-If you wire the pages up, delete their names from `KNOWN_UNREACHABLE` at the
-top of `tools/reach.js` and the check will start covering them.
+One block is still dead: `REVENUE_SPLIT` feeds `metricGroups`, a second
+dashboard view that never got markup — the Dashboard renders `ASPECT_DEFS`
+instead. It is marked `[NOT CURRENTLY RENDERED]` in the file and skipped by
+name in `tools/reach.js`. Skip it when customising, or build the view and
+delete its name from `KNOWN_UNREACHABLE`.
 
 ## Rebranding the colour
 

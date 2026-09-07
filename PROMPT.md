@@ -140,8 +140,8 @@ Rules while you work.
   is inside the quotes.
 - **Leave `[STRUCTURE]` blocks alone.** They drive routing, filters and
   permissions, not copy.
-- **Skip `[NOT CURRENTLY RENDERED]` blocks.** Five of them feed pages nothing
-  navigates to. Leave them as they are.
+- **Skip `[NOT CURRENTLY RENDERED]` blocks.** One feeds a dashboard view that
+  has no markup. Leave it as it is.
 - **Leave the `core:*` and `core.*` strings alone.** Those are engine
   permission and event names, not business language.
 - **Do not touch anything below the `ENGINE WALL`.** If you think you need

@@ -102,11 +102,9 @@ check — say which one is failing and why.
 
 ## Blocks marked `[NOT CURRENTLY RENDERED]`
 
-Five blocks feed pages that are built but that nothing navigates to
-(`Automations`, `System health`, `Installed modules`). They were already dead
-before this template was cut. Skip them — do not spend effort writing copy for
-a screen nobody can open, and do not try to wire the pages up, because that is
-a layout change.
+One block, `REVENUE_SPLIT`, feeds a second dashboard view that never got
+markup. Skip it — do not spend effort writing copy for a screen nobody can
+open, and do not build the view, because that is a layout change.
 
 ## When something does not fit
 

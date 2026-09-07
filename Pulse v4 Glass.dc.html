@@ -2060,6 +2060,184 @@ nav{scrollbar-width:none}
 </div>
 </sc-if>
 
+<sc-if value="{{ isAutomations }}" hint-placeholder-val="{{ false }}">
+<div style="padding-bottom:34px;animation:pageIn .62s var(--ease) both">
+
+<div style="display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;padding:20px 4px 20px">
+<div style="flex:1;min-width:280px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--faint)">AUTOMATIONS</div>
+<h1 style="margin:8px 0 0;font-size:38px;font-weight:500;letter-spacing:-1.5px;line-height:1">What runs without you</h1>
+<div style="font-size:14px;color:var(--dim);margin-top:9px">Every automation, what it is allowed to touch, and how the last fortnight went.</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<div style="min-width:118px;padding:12px 15px;border-radius:16px;background:var(--surface);border:1px solid var(--border)">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--faint)">LIVE</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-.6px;margin-top:6px;color:var(--ink)">{{ autos.liveCount }}</div>
+</div>
+<div style="min-width:118px;padding:12px 15px;border-radius:16px;background:var(--surface);border:1px solid var(--bad-soft)">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--faint)">FAILING</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-.6px;margin-top:6px;color:var(--bad)">{{ autos.failingCount }}</div>
+</div>
+<div style="min-width:118px;padding:12px 15px;border-radius:16px;background:var(--surface);border:1px solid var(--border)">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--faint)">ACTIONS</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-.6px;margin-top:6px;color:var(--ink)">{{ autos.actionCount }}</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:9px;padding:0 4px 16px">
+<span style="width:6px;height:6px;flex:none;border-radius:50%;background:var(--accent)"></span>
+<span style="font-size:12.5px;color:var(--dim)">{{ autos.guardrail }}</span>
+</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:24px;backdrop-filter:blur(20px) saturate(1.3);box-shadow:var(--card-shadow);padding:6px 0 10px">
+<div style="display:grid;grid-template-columns:1.4fr 1.1fr 1.2fr 1fr;gap:10px;padding:12px 22px 10px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.1em;color:var(--faint)">AUTOMATION</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.1em;color:var(--faint)">TRIGGER</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.1em;color:var(--faint)">EFFECTS</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.1em;color:var(--faint)">LAST FOURTEEN RUNS</div>
+</div>
+<sc-for list="{{ autos.rows }}" as="a" hint-placeholder-count="4">
+<div style="display:grid;grid-template-columns:1.4fr 1.1fr 1.2fr 1fr;gap:10px;padding:16px 22px;border-top:1px solid var(--border)">
+<div style="min-width:0;display:flex;flex-direction:column;justify-content:center;gap:7px">
+<div style="font-size:13.5px;line-height:1.35">{{ a.name }}</div>
+<div><span style="{{ a.stateStyle }}">{{ a.state }}</span></div>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;justify-content:center">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--body);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ a.trigger }}</div>
+<div style="font-size:10.5px;color:var(--faint);margin-top:5px">{{ a.lastRun }}</div>
+</div>
+<div style="min-width:0;display:flex;flex-wrap:wrap;align-content:center;gap:6px">
+<sc-for list="{{ a.actions }}" as="x" hint-placeholder-count="2">
+<span style="padding:3px 9px;border-radius:999px;border:1px solid {{ x.border }};font-family:'IBM Plex Mono',monospace;font-size:10px;color:{{ x.color }}">{{ x.label }}</span>
+</sc-for>
+</div>
+<div style="min-width:0;display:flex;flex-direction:column;justify-content:center;gap:8px">
+<div style="display:flex;align-items:flex-end;gap:3px;height:22px">
+<sc-for list="{{ a.runs }}" as="r" hint-placeholder-count="14">
+<span title="{{ r.label }}" style="flex:1;min-width:2px;height:18px;border-radius:2px;background:{{ r.bg }}"></span>
+</sc-for>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;color:var(--faint)">{{ a.runSummary }}</span>
+<span style="flex:1;min-width:0;font-size:11px;color:{{ a.resultColor }};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ a.result }}</span>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ isHealth }}" hint-placeholder-val="{{ false }}">
+<div style="padding-bottom:34px;animation:pageIn .62s var(--ease) both">
+
+<div style="display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;padding:20px 4px 20px">
+<div style="flex:1;min-width:280px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--faint)">SYSTEM HEALTH</div>
+<h1 style="margin:8px 0 0;font-size:38px;font-weight:500;letter-spacing:-1.5px;line-height:1">Queues, jobs and outside calls</h1>
+<div style="font-size:14px;color:var(--dim);margin-top:9px">Whether the machine is keeping up. Data quality lives in Settings; this is the plumbing.</div>
+</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding-bottom:18px">
+<sc-for list="{{ sysHealth.tiles }}" as="t" hint-placeholder-count="4">
+<div style="padding:18px 20px;border-radius:20px;background:var(--surface);border:1px solid {{ t.border }};backdrop-filter:blur(20px) saturate(1.3);box-shadow:var(--card-shadow)">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--faint)">{{ t.label }}</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:30px;letter-spacing:-1px;margin-top:8px;color:{{ t.color }}">{{ t.value }}</div>
+<div style="font-size:11.5px;color:var(--dim);margin-top:6px">{{ t.hint }}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;align-items:start">
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:24px;backdrop-filter:blur(20px) saturate(1.3);box-shadow:var(--card-shadow);padding:20px 22px 12px">
+<div style="font-size:15px;font-weight:600">Recent failures</div>
+<div style="font-size:12px;color:var(--dim);margin-top:4px">What gave up, and the reason it gave.</div>
+<sc-for list="{{ sysHealth.failures }}" as="f" hint-placeholder-count="3">
+<div style="display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--border);margin-top:14px">
+<div style="flex:1;min-width:0">
+<div style="font-size:13px;line-height:1.35">{{ f.name }}</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--faint);margin-top:5px;line-height:1.45;word-break:break-word">{{ f.error }}</div>
+</div>
+<div style="flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+<span style="{{ f.tagStyle }}">{{ f.status }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint)">{{ f.at }}</span>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="background:var(--surface);border:1px solid var(--border);border-radius:24px;backdrop-filter:blur(20px) saturate(1.3);box-shadow:var(--card-shadow);padding:20px 22px 12px">
+<div style="display:flex;align-items:baseline;gap:10px">
+<div style="flex:1;min-width:0">
+<div style="font-size:15px;font-weight:600">Outside calls</div>
+<div style="font-size:12px;color:var(--dim);margin-top:4px">Every request that left the building.</div>
+</div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint)">{{ sysHealth.okCalls }}/{{ sysHealth.totalCalls }} OK</span>
+</div>
+<sc-for list="{{ sysHealth.calls }}" as="c" hint-placeholder-count="5">
+<div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--border);margin-top:12px">
+<div style="flex:1;min-width:0;font-family:'IBM Plex Mono',monospace;font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.tool }}</div>
+<span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--dim)">{{ c.ms }}</span>
+<span style="flex:none;{{ c.tagStyle }}">{{ c.status }}</span>
+<span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--faint);width:44px;text-align:right">{{ c.at }}</span>
+</div>
+</sc-for>
+</div>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isModules }}" hint-placeholder-val="{{ false }}">
+<div style="padding-bottom:34px;animation:pageIn .62s var(--ease) both">
+
+<div style="display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;padding:20px 4px 20px">
+<div style="flex:1;min-width:280px">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--faint)">INSTALLED MODULES</div>
+<h1 style="margin:8px 0 0;font-size:38px;font-weight:500;letter-spacing:-1.5px;line-height:1">What each module added</h1>
+<div style="font-size:14px;color:var(--dim);margin-top:9px">Modules register through the same contract core does. Nothing in core knows they are here.</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<div style="min-width:118px;padding:12px 15px;border-radius:16px;background:var(--surface);border:1px solid var(--border)">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--faint)">INSTALLED</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-.6px;margin-top:6px;color:var(--ink)">{{ mods.installedCount }}</div>
+</div>
+<div style="min-width:118px;padding:12px 15px;border-radius:16px;background:var(--surface);border:1px solid var(--border)">
+<div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.12em;color:var(--faint)">AVAILABLE</div>
+<div style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-.6px;margin-top:6px;color:var(--dim)">{{ mods.availableCount }}</div>
+</div>
+</div>
+</div>
+
+<div style="display:grid;gap:14px">
+<sc-for list="{{ mods.rows }}" as="m" hint-placeholder-count="4">
+<div style="{{ m.cardStyle }}">
+<div style="display:flex;align-items:baseline;gap:11px;flex-wrap:wrap">
+<div style="font-size:17px;font-weight:500;letter-spacing:-.3px">{{ m.label }}</div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--faint)">{{ m.id }} · {{ m.version }}</span>
+<span style="flex:1"></span>
+<span style="{{ m.stateStyle }}">{{ m.state }}</span>
+</div>
+<div style="font-size:13px;color:var(--body);margin-top:10px;line-height:1.55;max-width:74ch">{{ m.description }}</div>
+<div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px">
+<sc-for list="{{ m.contributions }}" as="c" hint-placeholder-count="5">
+<div style="padding:9px 14px;border-radius:14px;background:var(--surface-faint);border:1px solid var(--border)">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:-.4px;color:var(--ink)">{{ c.n }}</span>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.1em;color:var(--faint);margin-left:7px">{{ c.k }}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+
+</div>
+</sc-if>
+
 </div>
 </main>
 
@@ -3722,11 +3900,10 @@ const APPROVAL_ROWS = [
    steps:[{who:"Aoife Nolan",state:"raised",dot:GREEN},{who:"Martin Kilbride",state:"approved",dot:GREEN}]}
 ];
 
-/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
-   nothing navigates to it, so this data never reaches a screen. It was
-   already dead before the template was cut. Kept because the page is worth
-   reviving; skip it on a customisation pass unless the page comes back. */
-/* Dashboard › revenue split by site. EXACTLY 3, highest first. Keys should be
+/* [NOT CURRENTLY RENDERED] Feeds `metricGroups`, a second dashboard view that
+   never got markup - the Dashboard renders ASPECT_DEFS instead. Kept because
+   the view is worth reviving; skip it on a customisation pass.
+   Dashboard › revenue split by site. EXACTLY 3, highest first. Keys should be
    LOCATIONS names. Values are raw numbers — money() adds the currency. */
 const REVENUE_SPLIT = [
   ["Head office", 214600, "72%"],
@@ -3764,10 +3941,6 @@ const AUTOMATION_ROWS = [
    runs:["ok","ok","ok","ok","ok","ok","ok","ok","ok","ok","failed","failed","failed","failed"]}
 ];
 
-/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
-   nothing navigates to it, so this data never reaches a screen. It was
-   already dead before the template was cut. Kept because the page is worth
-   reviving; skip it on a customisation pass unless the page comes back. */
 /* System health › queue tiles. EXACTLY 4. */
 const HEALTH_TILES = [
   {label:"Events waiting", value:"12", hint:"oldest 4 minutes ago", color:INK, border:"var(--track)"},
@@ -3776,10 +3949,6 @@ const HEALTH_TILES = [
   {label:"Failed deliveries", value:"5", hint:"across 2 subscribers", color:AMBER, border:"var(--warn-soft)"}
 ];
 
-/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
-   nothing navigates to it, so this data never reaches a screen. It was
-   already dead before the template was cut. Kept because the page is worth
-   reviving; skip it on a customisation pass unless the page comes back. */
 /* System health › recent failures. EXACTLY 3. Names should match AUTOMATION_ROWS. */
 const HEALTH_FAILURES = [
   {name:"Xero invoice sync", status:"failed", error:"invalid_grant: refresh token expired", at:"02:14", tagBg:"var(--bad-soft)", tagColor:RED},
@@ -3787,10 +3956,6 @@ const HEALTH_FAILURES = [
   {name:"Unassigned visit escalation", status:"failed", error:"notify.inbox: actor has no grant for core:notification:create", at:"Mon", tagBg:"var(--bad-soft)", tagColor:RED}
 ];
 
-/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
-   nothing navigates to it, so this data never reaches a screen. It was
-   already dead before the template was cut. Kept because the page is worth
-   reviving; skip it on a customisation pass unless the page comes back. */
 /* System health › external tool calls. EXACTLY 5. Tools should be the ones
    INTEGRATIONS lists. */
 const HEALTH_CALLS = [
@@ -3812,10 +3977,6 @@ const NOTIFICATION_FEED = [
   {dot:NEUTRAL, text:"Your daily briefing is ready", event:"core.briefing.sent", channel:"WhatsApp", meta:"07:00"}
 ];
 
-/* [NOT CURRENTLY RENDERED] The page this feeds is listed in ADMIN_ORDER but
-   nothing navigates to it, so this data never reaches a screen. It was
-   already dead before the template was cut. Kept because the page is worth
-   reviving; skip it on a customisation pass unless the page comes back. */
 /* Modules page. EXACTLY 4: core, the installed fixture, a showcase, and one
    "available" module to show what could be switched on. Swap the last one for
    whatever vertical module this client would actually buy next. */
@@ -5960,13 +6121,50 @@ class Component extends DCLogic {
 
     const runBar = (state) => ({ok:"var(--accent)", partial:"var(--warn)", failed:"var(--bad)", idle:"var(--track)"})[state];
     const runs = (pattern) => pattern.map(p => ({bg:runBar(p), label:p}));
-    const automations = AUTOMATION_ROWS.map(a => Object.assign({}, a, {runs:runs(a.runs)}));
+    /* Automations page. The run strip is fourteen bars of ok/partial/failed/idle,
+       and each action carries the effect class that decides whether it can run
+       unattended: read is quiet, write and external are bordered. */
+    const automationsModel = {
+      rows: AUTOMATION_ROWS.map(a => Object.assign({}, a, {
+        runs: runs(a.runs),
+        stateStyle: "padding:3px 10px;border-radius:999px;font-size:11px;"
+          + "background:" + a.stateBg + ";color:" + a.stateColor
+      })),
+      liveCount: String(AUTOMATION_ROWS.filter(a => a.state === "live").length),
+      failingCount: String(AUTOMATION_ROWS.filter(a => a.state !== "live").length),
+      actionCount: String(AUTOMATION_ROWS.reduce((n, a) => n + a.actions.length, 0)),
+      guardrail: "Nothing with a write or external effect runs without a yes"
+    };
 
-    const health = HEALTH_TILES;
-    const failures = HEALTH_FAILURES;
-    const calls = HEALTH_CALLS;
+    /* System health. The queue tiles, what failed recently and how the external
+       calls behaved - the "is the machine running" screen, as opposed to the
+       data-quality card in Settings. */
+    const healthModel = {
+      tiles: HEALTH_TILES,
+      failures: HEALTH_FAILURES.map(f => Object.assign({}, f, {
+        tagStyle: "padding:3px 10px;border-radius:999px;font-size:11px;"
+          + "background:" + f.tagBg + ";color:" + f.tagColor
+      })),
+      calls: HEALTH_CALLS.map(c => Object.assign({}, c, {
+        tagStyle: "padding:3px 10px;border-radius:999px;font-size:11px;"
+          + "background:" + c.tagBg + ";color:" + c.tagColor
+      })),
+      okCalls: String(HEALTH_CALLS.filter(c => c.status === "ok").length),
+      totalCalls: String(HEALTH_CALLS.length)
+    };
 
-    const modules = MODULE_ROWS;
+    /* Installed modules: the registry view. What each module contributed to the
+       app, which is the claim the architecture makes. */
+    const modulesModel = {
+      rows: MODULE_ROWS.map(m => Object.assign({}, m, {
+        cardStyle: "padding:22px 24px;border-radius:24px;background:" + m.bg
+          + ";border:1px solid " + m.border,
+        stateStyle: "padding:3px 10px;border-radius:999px;font-size:11px;"
+          + "background:" + m.stateBg + ";color:" + m.stateColor
+      })),
+      installedCount: String(MODULE_ROWS.filter(m => m.state !== "available").length),
+      availableCount: String(MODULE_ROWS.filter(m => m.state === "available").length)
+    };
 
     const notificationFeed = NOTIFICATION_FEED;
 
@@ -6003,8 +6201,8 @@ class Component extends DCLogic {
           go: () => this.setState({page:"Work", queue:"mine"})},
         {title:themeAction, meta:"Appearance", hint:"ACTION", glyph:"action",
           go: () => this.setState({theme: st.theme === "dark" ? "light" : "dark"})},
-        {title:"Open system health", meta:"Admin · modules and jobs", hint:"ACTION", glyph:"action",
-          go: () => this.setState({page:"Settings"})}
+        {title:"Open system health", meta:"Queues, jobs and outside calls", hint:"ACTION", glyph:"action",
+          go: () => this.setState({paletteOpen:false, query:"", page:"System health"})}
       ]},
       {group:"Agents", scope:"Agents", items:st.agents.slice(0, 4).map(a => ({title:a.name, meta:a.role, hint:a.group ? "GROUP" : "AGENT", glyph:"agent",
         go: () => this.setState({page:"Agents", agentId:a.id})}))},
@@ -6017,7 +6215,15 @@ class Component extends DCLogic {
       {group:"Pages", scope:"Pages", items:ASPECT_DEFS.slice(0, 3).map(a => ({title:a.label, meta:a.description, hint:"AREA", glyph:"page",
         go: () => this.setState({page:"Dashboard", aspect:a.id})}))
         .concat([{title:"Roles and grants", meta:"Who can see and do what", hint:"CONFIG", glyph:"page",
-        go: () => this.setState({page:"Settings"})}])}
+        go: () => this.setState({page:"Settings"})},
+        /* The three admin pages are only in the no-query jump list otherwise, so
+           searching for them by name would come back empty. */
+        {title:"Automations", meta:"What runs without you, and what it may touch", hint:"PAGE", glyph:"page",
+        go: () => this.setState({paletteOpen:false, query:"", page:"Automations"})},
+        {title:"System health", meta:"Queues, jobs and outside calls", hint:"PAGE", glyph:"page",
+        go: () => this.setState({paletteOpen:false, query:"", page:"System health"})},
+        {title:"Installed modules", meta:"What each module added", hint:"PAGE", glyph:"page",
+        go: () => this.setState({paletteOpen:false, query:"", page:"Installed modules"})}])}
     ].filter(Boolean);
 
     const match = g => g.items.filter(i => !ql || (i.title + " " + i.meta).toLowerCase().includes(ql));
@@ -6114,9 +6320,9 @@ class Component extends DCLogic {
       ],
       Settings: [
         {title:"Roles and grants", meta:"Who can see and do what", icon:ICONS.navAdmin, go: jump("Settings")},
-        {title:"Installed modules", meta:"What this client runs", icon:ICONS.modules, go: jump("Settings")},
-        {title:"System health", meta:"Jobs, queues, sync", icon:ICONS.health, go: jump("Settings")},
-        {title:"Automations", meta:"Triggers and runs", icon:ICONS.autos, go: jump("Settings")}
+        {title:"Installed modules", meta:"What this client runs", icon:ICONS.modules, go: jump("Installed modules")},
+        {title:"System health", meta:"Jobs, queues, sync", icon:ICONS.health, go: jump("System health")},
+        {title:"Automations", meta:"Triggers and runs", icon:ICONS.autos, go: jump("Automations")}
       ]
     };
     const palPageRaw = KITS[page] || [
@@ -6939,6 +7145,12 @@ class Component extends DCLogic {
       isChat: page === "Home",
       isWork: page === "Work",
       isSettings: page === "Settings",
+      isAutomations: page === "Automations",
+      isHealth: page === "System health",
+      isModules: page === "Installed modules",
+      autos: automationsModel,
+      sysHealth: healthModel,
+      mods: modulesModel,
       admin: adminModel,
       inboxCount: String(openKeys.length),
       inboxEmpty: openKeys.length === 0,
